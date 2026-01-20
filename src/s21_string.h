@@ -73,8 +73,12 @@ static inline int s21_size_lt(s21_size_t a, s21_size_t b) {
     return a.__value < b.__value;
 }
 
-static inline int my_size_gt(s21_size_t a, s21_size_t b) {
+static inline int s21_size_gt(s21_size_t a, s21_size_t b) {
     return a.__value > b.__value;
+}
+
+static inline int s21_size_ne(s21_size_t a, s21_size_t b) {
+    return a.__value != b.__value;
 }
 
 //инкремент и декремент
@@ -96,7 +100,19 @@ static inline int s21_size_would_overflow_mul(s21_size_t a, s21_size_t b) {
 }
 
 //функции для работы со строками
+void *s21_memchr(const void* str, int c, s21_size_t n);
+int s21_memcmp(const void* str1, const void*str2, s21_size_t n);
+void *s21_memcpy(void* dest, const void *src, s21_size_t n);
+void *s21_memset(void* str, int c, s21_size_t n);
+char *s21_strncat(char* dest, const char *src, s21_size_t n);
 char *s21_strerror(int errnum);
 char *s21_strncpy(char *dest, const char *src, s21_size_t n);
-
+char *s21_strstr(const char* haystack, const char *needle);
+//----------------------------------------------------------------
+int s21_strncmp(const char *str1, const char *str2, s21_size_t n);
+s21_size_t s21_strlen(const char *str);
+s21_size_t s21_strcspn(const char *str1, const char *str2);
+char* s21_strpbrk(const char *str1, const char *str2);
+char* s21_strrchr(const char *str, int c);
+char* s21_strtok(char *str, const char *delim); 
 #endif /*S21_STRING_H*/
