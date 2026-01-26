@@ -6,20 +6,26 @@
 
 
 //__SIZE_TYPE__ - это макрос компилятора, который определяет какой базовый тип определен в данной ОС как size_t
-#ifdef __SIZE_TYPE__
-typedef __SIZE_TYPE__ __size_internal;
-#elif SIZE_MAX == ULLONG_MAX
-typedef unsigned long long __size_internal;
-#elif SIZE_MAX == ULONG_MAX
-typedef unsigned long __size_internal;
-#elif SIZE_MAX == UINT_MAX
-typedef unsigned int __size_internal;
-#else
-typedef unsigned long __size_internal;  
-#endif
+// #ifdef __SIZE_TYPE__
+// typedef __SIZE_TYPE__ __size_internal;
+// #elif SIZE_MAX == ULLONG_MAX
+// typedef unsigned long long __size_internal;
+// #elif SIZE_MAX == ULONG_MAX
+// typedef unsigned long __size_internal;
+// #elif SIZE_MAX == UINT_MAX
+// typedef unsigned int __size_internal;
+// #else
+// typedef unsigned long __size_internal;  
+// #endif
 
-//наш тип - это обертка над базовым типом, который используется как size_t
-typedef struct s21_size{
+// //наш тип - это обертка над базовым типом, который используется как size_t
+// typedef struct s21_size{
+//     __size_internal __value;
+// } s21_size_t;
+typedef uintptr_t __size_internal;
+
+//наш тип - это обёртка над базовым типом
+typedef struct s21_size {
     __size_internal __value;
 } s21_size_t;
 
@@ -109,8 +115,8 @@ char *s21_strerror(int errnum);
 char *s21_strncpy(char *dest, const char *src, s21_size_t n);
 char *s21_strstr(const char* haystack, const char *needle);
 //----------------------------------------------------------------
-int s21_strncmp(const char *str1, const char *str2, s21_size_t n);
-s21_size_t s21_strlen(const char *str);
+int s21_strncmp(const char *str1, const char *str2, __size_internal n);
+__size_internal s21_strlen(const char *str);
 s21_size_t s21_strcspn(const char *str1, const char *str2);
 char* s21_strpbrk(const char *str1, const char *str2);
 char* s21_strrchr(const char *str, int c);

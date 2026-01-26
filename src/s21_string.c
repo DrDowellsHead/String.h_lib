@@ -155,10 +155,10 @@ char *s21_strerror(int errnum){
 
 char *s21_strstr(const char* haystack, const char *needle) {
     if(haystack==S21_NULL || needle==S21_NULL) return S21_NULL;
-    s21_size_t n_len = s21_strlen(needle);
-    s21_size_t h_len = s21_strlen(haystack);
-    if(s21_size_eq(n_len, S21_SIZE_ZERO)) return (char*)haystack;
-    if(s21_size_eq(h_len, S21_SIZE_ZERO)) return S21_NULL;
+    __size_internal n_len = s21_strlen(needle);
+    __size_internal h_len = s21_strlen(haystack);
+    if(n_len==0) return (char*)haystack;
+    if(h_len==0) return S21_NULL;
     
     char* result = NULL;
 
@@ -174,40 +174,43 @@ char *s21_strstr(const char* haystack, const char *needle) {
 //============================================================================================
 //============================================================================================
 
-int s21_strncmp(const char *str1, const char *str2, s21_size_t n) {
+int s21_strncmp(const char *str1, const char *str2, __size_internal n) {
     if (str1 == S21_NULL || str2 == S21_NULL) {
         return 0;
     }
 
-    if (s21_size_eq(n, S21_SIZE_ZERO)) {
+    if (n==0) {
         return 0;
     }
 
-    while (s21_size_gt(n, S21_SIZE_ZERO) && *str1 && *str2 && *str1 == *str2) {
+    while (n>0 && *str1 && *str2 && *str1 == *str2) {
         str1++;
         str2++;
-        n = s21_size_dec(n);
+        n--;
     }
 
-    if (s21_size_eq(n, S21_SIZE_ZERO)) {
+    if (n==0) {
         return 0;
     }
 
     return (int)(*(unsigned char *)str1) - (int)(*(unsigned char *)str2);
 }
 
-s21_size_t s21_strlen(const char *str) {
-    if (str == S21_NULL) {
-        return S21_SIZE_ZERO;
+__size_internal s21_strlen(const char *str) {
+    // volatile запрещает оптимизацию порядка операций
+    const char *volatile safe_str = str;
+    
+    if (safe_str == NULL) {
+        return 0;
     }
-
+    
     s21_size_t i = S21_SIZE_ZERO;
-
-    while (str[s21_size_to_size_t(i)] != '\0') {
-        i=s21_size_inc(i);
+    
+    while (safe_str[s21_size_to_size_t(i)] != '\0') {
+        i = s21_size_inc(i);
     }
-
-    return i;
+    
+    return i.__value;
 }
 
 s21_size_t s21_strcspn(const char *str1, const char *str2) {
