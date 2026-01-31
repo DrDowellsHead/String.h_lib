@@ -1,111 +1,126 @@
+# Makefile для сборки проекта s21_string с отчетами по unit-тестам
 CC = gcc
-CFLAGS = -Wextra -Werror -std=gnu11 -g
-COV_FLAGS = --coverage
+#-Wno-stringop-truncation отключает проверку на потенциальное усечение строк
+#нужно для тестирования функций копирования строк
+CFLAGS = -Wall -Wextra -Werror -std=gnu11 -g -Wno-stringop-truncation
+CFLAGS_COV = -fprofile-arcs -ftest-coverage
+LDFLAGS_COV = -fprofile-arcs -ftest-coverage
+
 UNAME := $(shell uname)
-ifeq ($(UNAME), Darwin)  # macOS
+ifeq ($(UNAME), Darwin)
     TEST_FLAGS = -lcheck -lm -lpthread
-else                     # Linux
+else
     TEST_FLAGS = -lcheck -lm -lrt -lpthread -lsubunit
 endif
 
 # Пути
-SRC_DIR = .
-TEST_DIR = tests
 BUILD_DIR = build
 REPORT_DIR = reports
+TESTS_DIR = tests
 
-# Сборка статической библиотеки
-LIB_NAME = s21_string
-LIB_STATIC = $(BUILD_DIR)/$(LIB_NAME).a
-HEADER = $(LIB_NAME).h
-
-# Исходные файлы
-SRC_FILES = $(LIB_NAME).c
-OBJ_FILES = $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRC_FILES))
-
-# Тесты
-TEST_SRC = $(TEST_DIR)/test_s21_strlen.c
-TEST_HEADER = $(TEST_DIR)/test_s21_strlen.h
-TEST_OBJ = $(BUILD_DIR)/test_s21_strlen.o
-
+# Файлы проекта
+LIB_SRC = s21_string.c
+LIB_HEADER = s21_string.h
 MAIN_SRC = main.c
-MAIN_EXEC = $(BUILD_DIR)/main
-MAIN_COV_EXEC = $(BUILD_DIR)/main_cov
+TEST_SRC = $(TESTS_DIR)/test_s21_strlen.c \
+$(TESTS_DIR)/test_s21_strncmp.c \
+$(TESTS_DIR)/test_s21_strncpy.c
+TEST_HEADER = $(TESTS_DIR)/test_s21_strlen.h \
+$(TESTS_DIR)/test_s21_strncmp.h \
+$(TESTS_DIR)/test_s21_strncpy.h
+
+
+# Исполняемые файлы
+TEST_EXEC = $(BUILD_DIR)/test_runner
+TEST_EXEC_COV = $(BUILD_DIR)/test_runner_cov
 
 # Создание директорий
 $(BUILD_DIR) $(REPORT_DIR):
 	@mkdir -p $@
 
-.PHONY: all clean test gcov_report
+.PHONY: all clean test s21_string.a gcov_report help
 
 # Основные цели
-all: $(MAIN_EXEC)
+all: test
 
-# Компиляция основной программы
-$(MAIN_EXEC): $(MAIN_SRC) $(TEST_OBJ) $(LIB_STATIC) | $(BUILD_DIR)
-	$(CC) $(CFLAGS) -o $@ $(MAIN_SRC) $(TEST_OBJ) $(LIB_STATIC) $(TEST_FLAGS) -I. -I$(TEST_DIR)
+# ============================================
+# СБОРКА БЕЗ ПОКРЫТИЯ
+# ============================================
 
-# Компиляция тестового файла
-$(TEST_OBJ): $(TEST_SRC) $(TEST_HEADER) | $(BUILD_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@ -I. -I$(TEST_DIR)
+# Компиляция библиотеки
+$(BUILD_DIR)/s21_string.o: $(LIB_SRC) $(LIB_HEADER) | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $(LIB_SRC) -o $@
 
-# Статическая библиотека
-$(LIB_STATIC): $(OBJ_FILES) | $(BUILD_DIR)
-	ar rcs $@ $^
+# Сборка статической библиотеки
+s21_string.a: $(BUILD_DIR)/s21_string.o
+	ar rcs $@ $<
+	@echo "Библиотека создана: $@"
 
-# Объектные файлы библиотеки
-$(BUILD_DIR)/%.o: %.c $(HEADER) | $(BUILD_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+# Сборка тестового раннера
+$(TEST_EXEC): $(MAIN_SRC) $(TEST_SRC) s21_string.a | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -o $@ $(MAIN_SRC) $(TEST_SRC) s21_string.a $(TEST_FLAGS) -I. -I$(TESTS_DIR)
 
-# Запуск тестов
-test: $(MAIN_EXEC)
-	./$(MAIN_EXEC)
+# ============================================
+# СБОРКА С ПОКРЫТИЯ
+# ============================================
 
-# Gcov отчет 
-gcov_report: clean_gcov | $(REPORT_DIR)
-	@echo "=== Сборка с покрытием ==="
-	@$(MAKE) $(MAIN_COV_EXEC)
-	@echo "=== Запуск тестов ==="
-	cd $(BUILD_DIR) && ./main_cov
-	@echo "=== Генерация отчета gcov ==="
-	@for gcda_file in $(BUILD_DIR)/*.gcda; do \
-		if [ -f "$$gcda_file" ]; then \
-			base=$$(basename "$$gcda_file" .gcda); \
-			echo "Анализ $$base..."; \
-			gcov -b -o $(BUILD_DIR) "$$gcda_file" 2>/dev/null || true; \
-		fi; \
-	done
-	@echo "=== Генерация HTML отчета gcovr ==="
-	python3 -m gcovr -r . --object-directory=$(BUILD_DIR) \
-		--exclude=".*test.*" \
-		--html --html-details -o $(REPORT_DIR)/index.html
+# Сборка тестового раннера с покрытием
+$(TEST_EXEC_COV): $(MAIN_SRC) $(TEST_SRC) $(LIB_SRC) | $(BUILD_DIR)
+	$(CC) $(CFLAGS) $(CFLAGS_COV) -o $@ $(MAIN_SRC) $(TEST_SRC) $(LIB_SRC) \
+		$(TEST_FLAGS) -I. -I$(TESTS_DIR) $(LDFLAGS_COV)
+
+# ============================================
+# ЦЕЛИ ДЛЯ ПОЛЬЗОВАТЕЛЯ
+# ============================================
+
+# Запуск обычных тестов
+test: $(TEST_EXEC)
+	./$(TEST_EXEC)
+
+gcov_report: clean_cov $(TEST_EXEC_COV) | $(REPORT_DIR)
+	@echo "=== Запуск тестов с покрытием ==="
+	CK_HTML=no ./$(TEST_EXEC_COV)
+	@echo "=== Удаление временных файлов ==="
+	rm -f simple_report.txt test_log.txt test_report.xml check_report.html
+	@echo "=== Генерация HTML отчета ==="
+	python3 -m gcovr -r . \
+		--object-directory=$(BUILD_DIR) \
+		--html-details \
+		--exclude-unreachable-branches \
+		--exclude="s21_string.h" \
+		-o $(REPORT_DIR)/index.html
+	@echo ""
 	@echo "HTML отчет создан: $(REPORT_DIR)/index.html"
+	@echo "Чтобы открыть отчет, выполните: open $(REPORT_DIR)/index.html"
 
-# Версия main с поддержкой gcov 
-$(MAIN_COV_EXEC): $(MAIN_SRC) $(TEST_SRC) $(LIB_NAME).c | $(BUILD_DIR)
-	$(CC) $(CFLAGS) $(COV_FLAGS) -o $@ $(MAIN_SRC) $(TEST_SRC) $(LIB_NAME).c \
-		-I. -I$(TEST_DIR) $(TEST_FLAGS)
-
-# Очистка
+# Очистка всех файлов
 clean:
+	@echo "Очистка проекта..."
 	rm -rf $(BUILD_DIR) $(REPORT_DIR)
-	find . -name "*.gcda" -o -name "*.gcno" -o -name "*.gcov" -o -name "*.o" -delete
-
-clean_gcov:
+	rm -f *.a *.o
 	rm -f *.gcda *.gcno *.gcov
-	rm -rf $(REPORT_DIR)
+	rm -f simple_report.txt test_log.txt test_report.xml check_report.html
+	find . -name "*.o" -delete
+	rm -f $(TEST_EXEC) $(TEST_EXEC_COV)
 
-# Информация
-info:
-	@echo "=== Информация о проекте ==="
-	@echo "Библиотека: $(LIB_STATIC)"
-	@echo "Тесты: $(TEST_SRC)"
-	@echo "Основная программа: $(MAIN_SRC)"
-	@echo "GCov версия: $(MAIN_COV_EXEC)"
+# Очистка только файлов покрытия
+clean_cov:
+	@echo "Очистка файлов покрытия..."
+	rm -rf $(REPORT_DIR)
+	rm -f $(BUILD_DIR)/*.gcda $(BUILD_DIR)/*.gcno $(BUILD_DIR)/*.gcov
+	rm -f *.gcda *.gcno *.gcov
+	rm -f simple_report.txt test_log.txt test_report.xml check_report.html
+	rm -f $(TEST_EXEC_COV)
+
+# Справка
+help:
+	@echo "=== Makefile для проекта s21_string ==="
 	@echo ""
 	@echo "Доступные цели:"
-	@echo "  make all         - Собрать программу"
-	@echo "  make test        - Запустить тесты"
-	@echo "  make gcov_report - Создать отчет о покрытии"
-	@echo "  make clean       - Очистить все"
-	@echo "  make info        - Эта информация"
+	@echo "  make all         - Собрать и запустить тесты (аналог make test)"
+	@echo "  make test        - Собрать и запустить unit-тесты"
+	@echo "  make s21_string.a - Собрать статическую библиотеку"
+	@echo "  make gcov_report - Создать HTML отчет о покрытии тестами"
+	@echo "  make clean       - Очистить все сгенерированные файлы"
+	@echo "  make help        - Показать эту справку"
+

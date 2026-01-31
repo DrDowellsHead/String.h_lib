@@ -1,14 +1,21 @@
 #include "s21_string.h"
 #include "tests/test_s21_strlen.h"
+#include "tests/test_s21_strncmp.h"
+#include "tests/test_s21_strncpy.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 int main(void) {
     printf("=== Запуск тестов библиотеки s21_string ===\n");
-    
+    Suite *s_strlen = strlen_suite();
+    Suite *s_strncmp = strncmp_suite();
+    Suite *s_strncpy = strncpy_suite();
+
     // Создаем тестовый раннер
-    SRunner *sr = srunner_create(strlen_suite());
-    
+    SRunner *sr = srunner_create(s_strlen);
+    srunner_add_suite(sr, s_strncmp);
+    srunner_add_suite(sr, s_strncpy);
+
     // Настраиваем отчеты
     srunner_set_fork_status(sr, CK_NOFORK);
     srunner_set_log(sr, "test_log.txt");

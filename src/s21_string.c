@@ -96,14 +96,15 @@ void *s21_memset(void* str, int c, s21_size_t n) {
     return str;
 }
 
-char *s21_strncpy(char *dest, const char *src, s21_size_t n) {
+char *s21_strncpy(char *dest, const char *src, __size_internal n) {
     if (dest == S21_NULL || src == S21_NULL) return dest;  
     
     char *original_dest = dest;
     s21_size_t i = S21_SIZE_ZERO;
+    s21_size_t j = s21_size_make(n);
     
     //копируем до n символов или до '\0'
-    while (s21_size_lt(i, n)) {
+    while (s21_size_lt(i, j)) {
         dest[s21_size_to_size_t(i)] = src[s21_size_to_size_t(i)];
         
         if (src[s21_size_to_size_t(i)] == '\0') break;
@@ -113,7 +114,7 @@ char *s21_strncpy(char *dest, const char *src, s21_size_t n) {
     
     //если не скопировали n символов (например, встретили '\0'), 
     // дополняем оставшиеся позиции нулями
-    while (s21_size_lt(i, n)) {
+    while (s21_size_lt(i, j)) {
         dest[s21_size_to_size_t(i)] = '\0';
         i = s21_size_inc(i);
     }
@@ -143,8 +144,7 @@ char *s21_strerror(int errnum){
     static char error_buffer[256];
     char* result;
     if( errnum>=0 && errnum<= S21_MAX_ERROR_COUNT){
-        s21_strncpy(error_buffer, s21_error_messages[errnum], 
-                       s21_size_make(255));
+        s21_strncpy(error_buffer, s21_error_messages[errnum], 255);
         error_buffer[255] = '\0';                       
         result = error_buffer;
     } else{

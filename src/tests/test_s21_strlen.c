@@ -18,7 +18,7 @@ END_TEST
 
 START_TEST(test_strlen_spaces) {
     ck_assert_uint_eq(s21_strlen("hello world"), strlen("hello world"));
-    ck_assert_uint_eq(s21_strlen("  "), strlen(" "));
+    ck_assert_uint_eq(s21_strlen(" "), strlen(" "));
 }
 END_TEST
 
@@ -75,6 +75,7 @@ Suite *strlen_suite(void) {
     tcase_add_test(tc, test_basic_string);
     tcase_add_test(tc, test_single_char);
     tcase_add_test(tc, test_null_pointer);
+    tcase_add_test(tc, test_strlen_spaces);
     tcase_add_test(tc, test_long_string);
     tcase_add_test(tc, test_special_chars);
     tcase_add_test(tc, test_mixed_content);
