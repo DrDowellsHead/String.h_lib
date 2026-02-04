@@ -106,8 +106,8 @@ static inline int s21_size_would_overflow_mul(s21_size_t a, s21_size_t b) {
 }
 
 //функции для работы со строками
-void *s21_memchr(const void* str, int c, s21_size_t n);
-int s21_memcmp(const void* str1, const void*str2, s21_size_t n);
+void *s21_memchr(const void* str, int c, __size_internal n);
+int s21_memcmp(const void* str1, const void*str2, __size_internal n);
 void *s21_memcpy(void* dest, const void *src, s21_size_t n);
 void *s21_memset(void* str, int c, s21_size_t n);
 char *s21_strncat(char* dest, const char *src, s21_size_t n);

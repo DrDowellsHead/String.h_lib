@@ -24,10 +24,14 @@ LIB_HEADER = s21_string.h
 MAIN_SRC = main.c
 TEST_SRC = $(TESTS_DIR)/test_s21_strlen.c \
 $(TESTS_DIR)/test_s21_strncmp.c \
-$(TESTS_DIR)/test_s21_strncpy.c
+$(TESTS_DIR)/test_s21_strncpy.c \
+$(TESTS_DIR)/test_s21_memchr.c \
+$(TESTS_DIR)/test_s21_memcmp.c 
 TEST_HEADER = $(TESTS_DIR)/test_s21_strlen.h \
 $(TESTS_DIR)/test_s21_strncmp.h \
-$(TESTS_DIR)/test_s21_strncpy.h
+$(TESTS_DIR)/test_s21_strncpy.h \
+$(TESTS_DIR)/test_s21_memchr.h \
+$(TESTS_DIR)/test_s21_memcmp.h
 
 
 # Исполняемые файлы
@@ -80,8 +84,8 @@ test: $(TEST_EXEC)
 gcov_report: clean_cov $(TEST_EXEC_COV) | $(REPORT_DIR)
 	@echo "=== Запуск тестов с покрытием ==="
 	CK_HTML=no ./$(TEST_EXEC_COV)
-	@echo "=== Удаление временных файлов ==="
-	rm -f simple_report.txt test_log.txt test_report.xml check_report.html
+	#@echo "=== Удаление временных файлов ==="
+	#rm -f simple_report.txt test_log.txt test_report.xml check_report.html
 	@echo "=== Генерация HTML отчета ==="
 	python3 -m gcovr -r . \
 		--object-directory=$(BUILD_DIR) \

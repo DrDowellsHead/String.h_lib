@@ -3,7 +3,7 @@
 #include "s21_string.h"
 #include "s21_errors.h"
 
-void *s21_memchr(const void *str, int c, s21_size_t n) {
+void *s21_memchr(const void *str, int c, __size_internal n) {
     if( str == S21_NULL ) return S21_NULL;
 
     const unsigned char *byte_ptr = (const unsigned char*)str;
@@ -11,9 +11,10 @@ void *s21_memchr(const void *str, int c, s21_size_t n) {
     void *found_ptr = S21_NULL;
 
     s21_size_t i = S21_SIZE_ZERO;
+    s21_size_t j = s21_size_make(n);
     bool found = 0;
 
-    while(s21_size_lt(i,n) && !found){
+    while(s21_size_lt(i,j) && !found){
         if(byte_ptr[s21_size_to_size_t(i)] == target ){
             found_ptr = (void *)(byte_ptr+s21_size_to_size_t(i));
             found = true;
@@ -25,32 +26,25 @@ void *s21_memchr(const void *str, int c, s21_size_t n) {
 }
 
 //вернёт 0, если есть равенство, <0, если str1<str2(побайтно), >0 - иначе
-int s21_memcmp(const void* str1, const void*str2, s21_size_t n) {
-    if( str1 == S21_NULL && str2 == S21_NULL ) return 0;
-    //NULL обычно меньше любого другого указателя
-    if( str1 == S21_NULL || str2 == S21_NULL ) return (str1==S21_NULL) ? -1 : 1;
-
-    const unsigned char *p1 = (const unsigned char*)str1;
-    const unsigned char *p2 = (const unsigned char*)str2;
-
-    s21_size_t i = S21_SIZE_ZERO;
-    bool is_equal = true;
-    int result = 0;
-
-    while(s21_size_lt(i, n) && is_equal ){
-        unsigned char byte1 = p1[s21_size_to_size_t(i)];
-        unsigned char byte2 = p2[s21_size_to_size_t(i)];
-        if( byte1 != byte2 ){
-            result = (int)byte1 - (int)byte2;
-            is_equal = false;
-        }
-        i = s21_size_inc(i);
-    }
-
-    if(result)
-        result = result<0 ? -1 : 1;
+int s21_memcmp(const void* str1, const void* str2, __size_internal n) {
+    // Проверки на NULL
+    if (str1 == S21_NULL && str2 == S21_NULL) return 0;
+    if (str1 == S21_NULL || str2 == S21_NULL) return (str1 == S21_NULL) ? -1 : 1;
     
-    return result;
+    // Быстрая проверка
+    if (n == 0) return 0;
+    
+    const unsigned char *p1 = str1;
+    const unsigned char *p2 = str2;
+    
+    // Простой цикл for
+    for (size_t i = 0; i < (size_t)n; i++) {
+        if (p1[i] != p2[i]) {
+            return p1[i] - p2[i];  // Приведение к int происходит автоматически
+        }
+    }
+    
+    return 0;
 }
 
 void *s21_memcpy(void* dest, const void *src, s21_size_t n) {

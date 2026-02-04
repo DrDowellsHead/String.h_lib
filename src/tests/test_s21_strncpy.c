@@ -5,32 +5,33 @@
 #include <time.h>
 
 START_TEST(test_strncpy_basic) {
-    char dest1[20], dest2[20];
+    //важно! иначе тест не пройдет, потому что в оставшихся элементах будет мусор
+    char dest1[20]={0}, dest2[20]={0}; 
 
     s21_strncpy(dest1, "Hello", 5);
     strncpy(dest2, "Hello", 5);
 
-    ck_assert_mem_eq(dest1, dest2,5);
+    ck_assert_str_eq(dest1, dest2);
 }
 END_TEST
 
 START_TEST(test_strncpy_greater) {
-    char dest1[20], dest2[20];
+    char dest1[20]={0}, dest2[20]={0};
 
     s21_strncpy(dest1, "Hello World", 5);
     strncpy(dest2, "Hello World", 5);
 
-    ck_assert_mem_eq(dest1, dest2, 5);
+    ck_assert_str_eq(dest1, dest2);
 }
 END_TEST
 
 START_TEST(test_strncpy_smaller) {
-    char dest1[20], dest2[20];
+    char dest1[20]={0}, dest2[20]={0};
 
     s21_strncpy(dest1, "Hello World", 5);
     strncpy(dest2, "Hellow World", 5);
 
-    ck_assert_mem_eq(dest1, dest2, 5);
+    ck_assert_str_eq(dest1, dest2);
 }
 END_TEST
 
