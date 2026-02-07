@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://check.sourceforge.net/xml/check_unittest.xslt"?>
+<testsuites xmlns="http://check.sourceforge.net/ns">
+  <datetime>2026-02-02 00:51:18</datetime>
+  <suite>
+    <title>s21_strlen</title>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_strlen.c:9</fn>
+      <id>test_empty_string</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>Core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_strlen.c:15</fn>
+      <id>test_basic_string</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>Core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_strlen.c:26</fn>
+      <id>test_single_char</id>
+      <iteration>0</iteration>
+      <duration>0.000011</duration>
+      <description>Core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_strlen.c:31</fn>
+      <id>test_null_pointer</id>
+      <iteration>0</iteration>
+      <duration>0.000011</duration>
+      <description>Core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_strlen.c:21</fn>
+      <id>test_strlen_spaces</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>Core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_strlen.c:37</fn>
+      <id>test_long_string</id>
+      <iteration>0</iteration>
+      <duration>0.000015</duration>
+      <description>Core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_strlen.c:44</fn>
+      <id>test_special_chars</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>Core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_strlen.c:49</fn>
+      <id>test_mixed_content</id>
+      <iteration>0</iteration>
+      <duration>0.000012</duration>
+      <description>Core</description>
+      <message>Passed</message>
+    </test>
+  </suite>
+  <suite>
+    <title>s21_strncmp</title>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_strncmp.c:9</fn>
+      <id>test_strncmp_equal</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>Core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_strncmp.c:15</fn>
+      <id>test_strncmp_less</id>
+      <iteration>0</iteration>
+      <duration>0.000012</duration>
+      <description>Core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_strncmp.c:21</fn>
+      <id>test_strncmp_greater</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>Core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_strncmp.c:27</fn>
+      <id>test_strncmp_zero</id>
+      <iteration>0</iteration>
+      <duration>0.000012</duration>
+      <description>Core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_strncmp.c:36</fn>
+      <id>test_strncmp_partital</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>Core</description>
+      <message>Passed</message>
+    </test>
+  </suite>
+  <suite>
+    <title>s21_strncpy</title>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_strncpy.c:13</fn>
+      <id>test_strncpy_basic</id>
+      <iteration>0</iteration>
+      <duration>0.000011</duration>
+      <description>Core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_strncpy.c:23</fn>
+      <id>test_strncpy_greater</id>
+      <iteration>0</iteration>
+      <duration>0.000012</duration>
+      <description>Core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_strncpy.c:33</fn>
+      <id>test_strncpy_smaller</id>
+      <iteration>0</iteration>
+      <duration>0.000012</duration>
+      <description>Core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_strncpy.c:48</fn>
+      <id>test_strlen_random</id>
+      <iteration>0</iteration>
+      <duration>0.000136</duration>
+      <description>Core</description>
+      <message>Passed</message>
+    </test>
+  </suite>
+  <duration>0.001105</duration>
+</testsuites>

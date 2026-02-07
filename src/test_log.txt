@@ -1,0 +1,22 @@
+Running suite s21_strlen
+tests/test_s21_strlen.c:9:P:Core:test_empty_string:0: Passed
+tests/test_s21_strlen.c:15:P:Core:test_basic_string:0: Passed
+tests/test_s21_strlen.c:26:P:Core:test_single_char:0: Passed
+tests/test_s21_strlen.c:31:P:Core:test_null_pointer:0: Passed
+tests/test_s21_strlen.c:21:P:Core:test_strlen_spaces:0: Passed
+tests/test_s21_strlen.c:37:P:Core:test_long_string:0: Passed
+tests/test_s21_strlen.c:44:P:Core:test_special_chars:0: Passed
+tests/test_s21_strlen.c:49:P:Core:test_mixed_content:0: Passed
+Running suite s21_strncmp
+tests/test_s21_strncmp.c:9:P:Core:test_strncmp_equal:0: Passed
+tests/test_s21_strncmp.c:15:P:Core:test_strncmp_less:0: Passed
+tests/test_s21_strncmp.c:21:P:Core:test_strncmp_greater:0: Passed
+tests/test_s21_strncmp.c:27:P:Core:test_strncmp_zero:0: Passed
+tests/test_s21_strncmp.c:36:P:Core:test_strncmp_partital:0: Passed
+Running suite s21_strncpy
+tests/test_s21_strncpy.c:13:P:Core:test_strncpy_basic:0: Passed
+tests/test_s21_strncpy.c:23:P:Core:test_strncpy_greater:0: Passed
+tests/test_s21_strncpy.c:33:P:Core:test_strncpy_smaller:0: Passed
+tests/test_s21_strncpy.c:48:P:Core:test_strlen_random:0: Passed
+Results for all suites run:
+100%: Checks: 17, Failures: 0, Errors: 0

@@ -1,12 +1,15 @@
-#include <stdio.h>
-#include <stdbool.h>
 #include "s21_string.h"
+
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "s21_errors.h"
 
 void *s21_memchr(const void *str, int c, __size_internal n) {
     if( str == S21_NULL ) return S21_NULL;
 
-    const unsigned char *byte_ptr = (const unsigned char*)str;
+    const unsigned char *byte_ptr = (const unsigned char *)str;
     unsigned char target = (unsigned char)c;
     void *found_ptr = S21_NULL;
 
@@ -47,26 +50,25 @@ int s21_memcmp(const void* str1, const void* str2, __size_internal n) {
     return 0;
 }
 
-void *s21_memcpy(void* dest, const void *src, s21_size_t n) {
+void *s21_memcpy(void *dest, const void *src, s21_size_t n) {
     if (dest == S21_NULL || src == S21_NULL) return dest;
 
     unsigned char *d = (unsigned char *)dest;
     const unsigned char *s = (const unsigned char *)src;
 
-   
-    //перекрытие областей памяти - dest внутри src
-    if( d > s && d < s + s21_size_to_size_t(n)){
-        //копируем с конца
+    // перекрытие областей памяти - dest внутри src
+    if (d > s && d < s + s21_size_to_size_t(n)) {
+        // копируем с конца
         s21_size_t i = n;
-        while(s21_size_ne(i, S21_SIZE_ZERO)){
+        while (s21_size_ne(i, S21_SIZE_ZERO)) {
             i = s21_size_dec(i);
-             d[s21_size_to_size_t(i)] = s[s21_size_to_size_t(i)];
+            d[s21_size_to_size_t(i)] = s[s21_size_to_size_t(i)];
         }
     } else {
-        //копируем с начала
+        // копируем с начала
         s21_size_t i = S21_SIZE_ZERO;
-        while(s21_size_lt(i, n)){
-            //копируем байты без каких-либо проверок
+        while (s21_size_lt(i, n)) {
+            // копируем байты без каких-либо проверок
             d[s21_size_to_size_t(i)] = s[s21_size_to_size_t(i)];
             i = s21_size_inc(i);
         }
@@ -74,15 +76,15 @@ void *s21_memcpy(void* dest, const void *src, s21_size_t n) {
     return dest;
 }
 
-void *s21_memset(void* str, int c, s21_size_t n) {
-    if(str==S21_NULL) return S21_NULL;
-    if(s21_size_eq(n, S21_SIZE_ZERO)) return str;
+void *s21_memset(void *str, int c, s21_size_t n) {
+    if (str == S21_NULL) return S21_NULL;
+    if (s21_size_eq(n, S21_SIZE_ZERO)) return str;
 
     unsigned char *ptr = (unsigned char *)str;
     unsigned char value = (unsigned char)c;
 
     s21_size_t i = S21_SIZE_ZERO;
-    while(s21_size_lt(i,n)){
+    while (s21_size_lt(i, n)) {
         ptr[s21_size_to_size_t(i)] = value;
         i = s21_size_inc(i);
     }
@@ -91,41 +93,41 @@ void *s21_memset(void* str, int c, s21_size_t n) {
 }
 
 char *s21_strncpy(char *dest, const char *src, __size_internal n) {
-    if (dest == S21_NULL || src == S21_NULL) return dest;  
-    
+    if (dest == S21_NULL || src == S21_NULL) return dest;
+
     char *original_dest = dest;
     s21_size_t i = S21_SIZE_ZERO;
     s21_size_t j = s21_size_make(n);
-    
-    //копируем до n символов или до '\0'
+
+    // копируем до n символов или до '\0'
     while (s21_size_lt(i, j)) {
         dest[s21_size_to_size_t(i)] = src[s21_size_to_size_t(i)];
-        
+
         if (src[s21_size_to_size_t(i)] == '\0') break;
-        
+
         i = s21_size_inc(i);
     }
-    
-    //если не скопировали n символов (например, встретили '\0'), 
-    // дополняем оставшиеся позиции нулями
+
+    // если не скопировали n символов (например, встретили '\0'),
+    //  дополняем оставшиеся позиции нулями
     while (s21_size_lt(i, j)) {
         dest[s21_size_to_size_t(i)] = '\0';
         i = s21_size_inc(i);
     }
-    
+
     return original_dest;
 }
 
-char *s21_strncat(char* dest, const char *src, s21_size_t n){
-    if(dest==S21_NULL) return S21_NULL;
-    if(src==S21_NULL) return dest;
+char *s21_strncat(char *dest, const char *src, s21_size_t n) {
+    if (dest == S21_NULL) return S21_NULL;
+    if (src == S21_NULL) return dest;
 
     char *dest_end = dest;
-    while(*dest_end != '\0') dest_end++;
+    while (*dest_end != '\0') dest_end++;
 
     s21_size_t i = S21_SIZE_ZERO;
 
-    while( s21_size_lt(i,n) && src[s21_size_to_size_t(i)] != '\0'){
+    while (s21_size_lt(i, n) && src[s21_size_to_size_t(i)] != '\0') {
         *dest_end++ = src[s21_size_to_size_t(i)];
         i = s21_size_inc(i);
     }
@@ -134,32 +136,33 @@ char *s21_strncat(char* dest, const char *src, s21_size_t n){
     return dest;
 }
 
-char *s21_strerror(int errnum){
+char *s21_strerror(int errnum) {
     static char error_buffer[256];
-    char* result;
-    if( errnum>=0 && errnum<= S21_MAX_ERROR_COUNT){
+    char *result;
+    if (errnum >= 0 && errnum <= S21_MAX_ERROR_COUNT) {
         s21_strncpy(error_buffer, s21_error_messages[errnum], 255);
-        error_buffer[255] = '\0';                       
+        error_buffer[255] = '\0';
         result = error_buffer;
-    } else{
+    } else {
         result = S21_NULL;
     }
     return result;
 }
 
-char *s21_strstr(const char* haystack, const char *needle) {
-    if(haystack==S21_NULL || needle==S21_NULL) return S21_NULL;
+char *s21_strstr(const char *haystack, const char *needle) {
+    if (haystack == S21_NULL || needle == S21_NULL) return S21_NULL;
     __size_internal n_len = s21_strlen(needle);
     __size_internal h_len = s21_strlen(haystack);
-    if(n_len==0) return (char*)haystack;
-    if(h_len==0) return S21_NULL;
-    
-    char* result = NULL;
+    if (n_len == 0) return (char *)haystack;
+    if (h_len == 0) return S21_NULL;
 
-    for (s21_size_t i=S21_SIZE_ZERO; haystack[s21_size_to_size_t(i)]; i=s21_size_inc(i)){
-        if(s21_strncmp(haystack+s21_size_to_size_t(i), needle, n_len)==0){
-            return (char*)(haystack + s21_size_to_size_t(i));
-        }    
+    char *result = NULL;
+
+    for (s21_size_t i = S21_SIZE_ZERO; haystack[s21_size_to_size_t(i)];
+         i = s21_size_inc(i)) {
+        if (s21_strncmp(haystack + s21_size_to_size_t(i), needle, n_len) == 0) {
+            return (char *)(haystack + s21_size_to_size_t(i));
+        }
     }
 
     return result;
@@ -173,17 +176,17 @@ int s21_strncmp(const char *str1, const char *str2, __size_internal n) {
         return 0;
     }
 
-    if (n==0) {
+    if (n == 0) {
         return 0;
     }
 
-    while (n>0 && *str1 && *str2 && *str1 == *str2) {
+    while (n > 0 && *str1 && *str2 && *str1 == *str2) {
         str1++;
         str2++;
         n--;
     }
 
-    if (n==0) {
+    if (n == 0) {
         return 0;
     }
 
@@ -193,17 +196,17 @@ int s21_strncmp(const char *str1, const char *str2, __size_internal n) {
 __size_internal s21_strlen(const char *str) {
     // volatile запрещает оптимизацию порядка операций
     const char *volatile safe_str = str;
-    
+
     if (safe_str == NULL) {
         return 0;
     }
-    
+
     s21_size_t i = S21_SIZE_ZERO;
-    
+
     while (safe_str[s21_size_to_size_t(i)] != '\0') {
         i = s21_size_inc(i);
     }
-    
+
     return i.__value;
 }
 
@@ -230,13 +233,13 @@ s21_size_t s21_strcspn(const char *str1, const char *str2) {
             break;
         }
 
-        i=s21_size_inc(i);
+        i = s21_size_inc(i);
     }
 
     return i;
 }
 
-char* s21_strpbrk(const char *str1, const char *str2) {
+char *s21_strpbrk(const char *str1, const char *str2) {
     if (str1 == S21_NULL || str2 == S21_NULL) {
         return S21_NULL;
     }
@@ -256,29 +259,47 @@ char* s21_strpbrk(const char *str1, const char *str2) {
     return S21_NULL;
 }
 
-char* s21_strrchr(const char *str, int c) {
-    const char *last_occurrence = S21_NULL;
+char *s21_strchr(const char *str, int c) {
+    if (str == S21_NULL) return S21_NULL;
 
-    if (str == S21_NULL) {
-        return S21_NULL;
-    }
+    unsigned char target = (unsigned char)c;
 
     while (*str != '\0') {
-        if (*str == (char)c) {
-            last_occurrence = str;
+        if ((unsigned char)*str == target) {
+            return (char *)str;
         }
 
         str++;
     }
 
-    if ((char)c == '\0') {
+    if (target == (unsigned char)'\0') {
+        return (char *)str;
+    }
+
+    return S21_NULL;
+}
+
+char *s21_strrchr(const char *str, int c) {
+    if (str == S21_NULL) return S21_NULL;
+
+    const char *last_occurrence = S21_NULL;
+    unsigned char target = (unsigned char)c;
+
+    while (*str != '\0') {
+        if ((unsigned char)*str == target) {
+            last_occurrence = str;
+        }
+        str++;
+    }
+
+    if (target == (unsigned char)'\0') {
         return (char *)str;
     }
 
     return (char *)last_occurrence;
 }
 
-char* s21_strtok(char *str, const char *delim) {
+char *s21_strtok(char *str, const char *delim) {
     // Статическая переменная нужна для сохранения состояния между вызовами
     // функции. Её состоняие сохраняется в Data-область памяти. В этой
     // переменной будет храниться значение строки ДО нахождения очередного
@@ -328,7 +349,7 @@ char* s21_strtok(char *str, const char *delim) {
     while (*token != '\0') {
         // Снова проверяем, является ли символ разделителем
         int is_delim = 0;
-        
+
         // Проверяем текущий символ против ВСЕХ разделителей
         for (const char *d = delim; *d != '\0'; d++) {
             if (*token == *d) {
@@ -355,7 +376,7 @@ char* s21_strtok(char *str, const char *delim) {
         token++;
     }
 
-    // Достигли конца строки (последний токен) 
+    // Достигли конца строки (последний токен)
     char *last_token = token_start;
 
     // Устанавливаем next_token в NULL
@@ -364,4 +385,153 @@ char* s21_strtok(char *str, const char *delim) {
     token = S21_NULL;
 
     return last_token;
+}
+
+// =========================== Special String Processing Functions
+// ===========================
+
+void *s21_to_upper(const char *str) {
+    if (str == S21_NULL) return S21_NULL;
+
+    // Длина строки без \0
+    s21_size_t len = s21_size_make((__size_internal)s21_strlen(str));
+
+    // Определение сколько байт нужно для выделения
+    s21_size_t bytes = s21_size_add(len, S21_SIZE_ONE);
+
+    // Выделение памяти
+    char *out = (char *)malloc(s21_size_to_size_t(bytes));
+    if (out == S21_NULL) return S21_NULL;
+
+    for (s21_size_t i = S21_SIZE_ZERO; s21_size_lt(i, len);
+         i = s21_size_inc(i)) {
+        unsigned char c = (unsigned char)str[s21_size_to_size_t(i)];
+
+        // Если "a"-"z", то перовод в верхний регистр по ASCII
+        if (c >= (unsigned char)'a' && c <= (unsigned char)'z') {
+            c = (unsigned char)(c - (unsigned char)('a' -
+                                                    'A'));  // Минус 32 символа
+                                                            // по ASCII
+        }
+
+        out[s21_size_to_size_t(i)] = (char)c;
+    }
+
+    out[s21_size_to_size_t(len)] = '\0';
+
+    return (void *)out;
+}
+
+void *s21_to_lower(const char *str) {
+    if (str == S21_NULL) return S21_NULL;
+
+    s21_size_t len = s21_size_make((__size_internal)s21_strlen(str));
+    s21_size_t bytes = s21_size_add(len, S21_SIZE_ONE);
+
+    char *out = (char *)malloc(s21_size_to_size_t(bytes));
+    if (out == S21_NULL) return S21_NULL;
+
+    for (s21_size_t i = S21_SIZE_ZERO; s21_size_lt(i, len);
+         i = s21_size_inc(i)) {
+        unsigned char c = (unsigned char)str[s21_size_to_size_t(i)];
+
+        if (c >= (unsigned char)'A' && c <= (unsigned char)'Z') {
+            c = (unsigned char)(c + (unsigned char)('a' - 'A'));
+        }
+
+        out[s21_size_to_size_t(i)] = (char)c;
+    }
+
+    out[s21_size_to_size_t(len)] = '\0';
+    return (void *)out;
+}
+
+void *s21_insert(const char *src, const char *str, size_t start_index) {
+    if (src == S21_NULL || str == S21_NULL) return S21_NULL;
+
+    // Это для упрощения записи. Теперь idx = start_index
+    s21_size_t idx = s21_size_make((__size_internal)start_index);
+
+    // Получение длин строк
+    s21_size_t src_len = s21_size_make((__size_internal)s21_strlen(src));
+    s21_size_t str_len = s21_size_make((__size_internal)s21_strlen(str));
+
+    if (s21_size_gt(idx, src_len)) return S21_NULL;
+
+    if (s21_size_would_overflow_add(src_len, str_len)) return S21_NULL;
+    s21_size_t out_len = s21_size_add(src_len, str_len);
+
+    // Добавление '\0'
+    if (s21_size_would_overflow_add(out_len, S21_SIZE_ONE)) return S21_NULL;
+    s21_size_t bytes = s21_size_add(out_len, S21_SIZE_ONE);
+
+    char *out = (char *)malloc(s21_size_to_size_t(bytes));
+    if (out == S21_NULL) return S21_NULL;
+
+    for (s21_size_t i = S21_SIZE_ZERO; s21_size_lt(i, idx);
+         i = s21_size_inc(i)) {
+        out[s21_size_to_size_t(i)] = src[s21_size_to_size_t(i)];
+    }
+
+    for (s21_size_t j = S21_SIZE_ZERO; s21_size_lt(j, idx);
+         j = s21_size_inc(j)) {
+        s21_size_t pos = s21_size_add(idx, j);
+        out[s21_size_to_size_t(pos)] = str[s21_size_to_size_t(j)];
+    }
+
+    for (s21_size_t i = idx; s21_size_lt(i, src_len); i = s21_size_inc(i)) {
+        s21_size_t dest_pos = s21_size_add(i, str_len);
+        out[s21_size_to_size_t(dest_pos)] = src[s21_size_to_size_t(i)];
+    }
+
+    out[s21_size_to_size_t(out_len)] = '\0';
+
+    return (void *)out;
+}
+
+void *trim(const char *src, const char *trim_chars) {
+    if (src == S21_NULL || trim_chars == S21_NULL) return S21_NULL;
+
+    // end = длина строки, то есть индекс после последнего символа
+    s21_size_t start = S21_SIZE_ZERO;
+    s21_size_t end = s21_size_make((__size_internal)s21_strlen(src));
+
+    // Если trim_chars пустая строка - то возвращается пустая строка
+    if (*trim_chars == '\0') {
+        s21_size_t bytes = s21_size_add(end, S21_SIZE_ONE);
+        char *copy = (char *)malloc(s21_size_to_size_t(bytes));
+        if (copy == S21_NULL) return S21_NULL;
+        s21_memcpy(copy, src, end);
+        copy[s21_size_to_size_t(end)] = '\0';
+        return (void *)copy;
+    }
+
+    // Трим слева: пока start < end и src[start] входит в trim_chars
+    while (s21_size_lt(start, end)) {
+        char ch = src[s21_size_to_size_t(start)];
+        if (s21_strchr(trim_chars, (unsigned char)ch) == S21_NULL) break;
+        start = s21_size_inc(start);
+    }
+
+    // Трим справа
+    while (s21_size_gt(end, start)) {
+        s21_size_t last = s21_size_dec(end);
+        char ch = src[s21_size_to_size_t(last)];
+        if (s21_strchr(trim_chars, (unsigned char)ch) == S21_NULL) break;
+        end = last;
+    }
+
+    s21_size_t len = s21_size_sub(end, start);
+
+    s21_size_t bytes = s21_size_add(len, S21_SIZE_ONE);
+    char *dest = (char *)malloc(s21_size_to_size_t(bytes));
+    if (dest == S21_NULL) return S21_NULL;
+
+    // Копирование подстроки src[start .. start+len-1] в dest
+    const char *src_ptr = src + s21_size_to_size_t(start);
+    s21_memcpy(dest, src_ptr, len);
+
+    dest[s21_size_to_size_t(len)] = '\0';
+
+    return (void *)dest;
 }
