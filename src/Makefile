@@ -2,7 +2,7 @@
 CC = gcc
 #-Wno-stringop-truncation отключает проверку на потенциальное усечение строк
 #нужно для тестирования функций копирования строк
-CFLAGS = -Wall -Wextra -Werror -std=gnu11 -g -Wno-stringop-truncation
+CFLAGS = -Wall -Wextra -Werror -std=gnu11 -g -Wno-stringop-truncation -Wno-error=comment
 CFLAGS_COV = -fprofile-arcs -ftest-coverage
 LDFLAGS_COV = -fprofile-arcs -ftest-coverage
 
@@ -26,12 +26,21 @@ TEST_SRC = $(TESTS_DIR)/test_s21_strlen.c \
 $(TESTS_DIR)/test_s21_strncmp.c \
 $(TESTS_DIR)/test_s21_strncpy.c \
 $(TESTS_DIR)/test_s21_memchr.c \
-$(TESTS_DIR)/test_s21_memcmp.c 
+$(TESTS_DIR)/test_s21_memcmp.c \
+$(TESTS_DIR)/test_s21_memcpy.c \
+$(TESTS_DIR)/test_s21_memset.c \
+$(TESTS_DIR)/test_s21_strncat.c \
+$(TESTS_DIR)/test_s21_strstr.c
 TEST_HEADER = $(TESTS_DIR)/test_s21_strlen.h \
 $(TESTS_DIR)/test_s21_strncmp.h \
 $(TESTS_DIR)/test_s21_strncpy.h \
 $(TESTS_DIR)/test_s21_memchr.h \
-$(TESTS_DIR)/test_s21_memcmp.h
+$(TESTS_DIR)/test_s21_memcmp.h \
+$(TESTS_DIR)/test_s21_memcpy.h \
+$(TESTS_DIR)/test_s21_memset.h \
+$(TESTS_DIR)/test_s21_strncat.h \
+$(TESTS_DIR)/test_s21_strstr.h \
+$(TESTS_DIR)/test_common_functions.h 
 
 
 # Исполняемые файлы

@@ -4,6 +4,10 @@
 #include "tests/test_s21_strncpy.h"
 #include "tests/test_s21_memchr.h"
 #include "tests/test_s21_memcmp.h"
+#include "tests/test_s21_memcpy.h"
+#include "tests/test_s21_memset.h"
+#include "tests/test_s21_strncat.h"
+#include "tests/test_s21_strstr.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -14,6 +18,10 @@ int main(void) {
     Suite *s_strncpy = strncpy_suite();
     Suite *s_memchr = memchr_suite();
     Suite *s_memcmp = memcmp_suite();
+    Suite *s_memcpy = memcpy_suite();
+    Suite *s_memset = memset_suite();
+    Suite *s_strncat = strncat_suite();
+    Suite *s_strstr = strstr_suite();
 
     // Создаем тестовый раннер
     SRunner *sr = srunner_create(s_strlen);
@@ -21,6 +29,10 @@ int main(void) {
     srunner_add_suite(sr, s_strncpy);
     srunner_add_suite(sr, s_memchr);
     srunner_add_suite(sr, s_memcmp);
+    srunner_add_suite(sr, s_memcpy);
+    srunner_add_suite(sr, s_memset);
+    srunner_add_suite(sr, s_strncat);
+    srunner_add_suite(sr, s_strstr);
 
     // Настраиваем отчеты
     srunner_set_fork_status(sr, CK_NOFORK);
