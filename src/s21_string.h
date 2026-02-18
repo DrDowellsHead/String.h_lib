@@ -118,7 +118,7 @@ char *s21_strstr(const char *haystack, const char *needle);
 //----------------------------------------------------------------
 int s21_strncmp(const char *str1, const char *str2, __size_internal n);
 __size_internal s21_strlen(const char *str);
-s21_size_t s21_strcspn(const char *str1, const char *str2);
+__size_internal s21_strcspn(const char *str1, const char *str2);
 char *s21_strpbrk(const char *str1, const char *str2);
 char *s21_strchr(const char *str, int c);
 char *s21_strrchr(const char *str, int c);

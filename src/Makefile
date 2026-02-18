@@ -30,7 +30,10 @@ $(TESTS_DIR)/test_s21_memcmp.c \
 $(TESTS_DIR)/test_s21_memcpy.c \
 $(TESTS_DIR)/test_s21_memset.c \
 $(TESTS_DIR)/test_s21_strncat.c \
-$(TESTS_DIR)/test_s21_strstr.c
+$(TESTS_DIR)/test_s21_strstr.c \
+$(TESTS_DIR)/test_s21_strcspn.c \
+$(TESTS_DIR)/test_s21_strpbrk.c \
+$(TESTS_DIR)/test_s21_strtok.c
 TEST_HEADER = $(TESTS_DIR)/test_s21_strlen.h \
 $(TESTS_DIR)/test_s21_strncmp.h \
 $(TESTS_DIR)/test_s21_strncpy.h \
@@ -40,6 +43,9 @@ $(TESTS_DIR)/test_s21_memcpy.h \
 $(TESTS_DIR)/test_s21_memset.h \
 $(TESTS_DIR)/test_s21_strncat.h \
 $(TESTS_DIR)/test_s21_strstr.h \
+$(TESTS_DIR)/test_s21_strcspn.h \
+$(TESTS_DIR)/test_s21_strpbrk.h \
+$(TESTS_DIR)/test_s21_strtok.h \
 $(TESTS_DIR)/test_common_functions.h 
 
 

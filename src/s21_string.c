@@ -211,9 +211,9 @@ __size_internal s21_strlen(const char *str) {
     return i.__value;
 }
 
-s21_size_t s21_strcspn(const char *str1, const char *str2) {
+__size_internal s21_strcspn(const char *str1, const char *str2) {
     if (str1 == S21_NULL || str2 == S21_NULL) {
-        return S21_SIZE_ZERO;
+        return 0;
     }
 
     s21_size_t i = S21_SIZE_ZERO;
@@ -237,7 +237,7 @@ s21_size_t s21_strcspn(const char *str1, const char *str2) {
         i = s21_size_inc(i);
     }
 
-    return i;
+    return i.__value;
 }
 
 char *s21_strpbrk(const char *str1, const char *str2) {
