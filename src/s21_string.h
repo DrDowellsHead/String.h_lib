@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 //__SIZE_TYPE__ - это макрос компилятора, который определяет какой базовый тип
-//определен в данной ОС как size_t
+// определен в данной ОС как size_t
 // #ifdef __SIZE_TYPE__
 // typedef __SIZE_TYPE__ __size_internal;
 // #elif SIZE_MAX == ULLONG_MAX
@@ -106,19 +106,19 @@ static inline int s21_size_would_overflow_mul(s21_size_t a, s21_size_t b) {
     return b.__value != 0 && a.__value > SIZE_MAX / b.__value;
 }
 
-//функции для работы со строками
-void *s21_memchr(const void* str, int c, __size_internal n);
-int s21_memcmp(const void* str1, const void*str2, __size_internal n);
-void *s21_memcpy(void* dest, const void *src, s21_size_t n);
-void *s21_memset(void* str, int c, s21_size_t n);
-char *s21_strncat(char* dest, const char *src, s21_size_t n);
+// функции для работы со строками
+void *s21_memchr(const void *str, int c, __size_internal n);
+int s21_memcmp(const void *str1, const void *str2, __size_internal n);
+void *s21_memcpy(void *dest, const void *src, __size_internal n);
+void *s21_memset(void *str, int c, __size_internal n);
+char *s21_strncat(char *dest, const char *src, __size_internal n);
 char *s21_strerror(int errnum);
 char *s21_strncpy(char *dest, const char *src, __size_internal n);
 char *s21_strstr(const char *haystack, const char *needle);
 //----------------------------------------------------------------
 int s21_strncmp(const char *str1, const char *str2, __size_internal n);
 __size_internal s21_strlen(const char *str);
-s21_size_t s21_strcspn(const char *str1, const char *str2);
+__size_internal s21_strcspn(const char *str1, const char *str2);
 char *s21_strpbrk(const char *str1, const char *str2);
 char *s21_strchr(const char *str, int c);
 char *s21_strrchr(const char *str, int c);

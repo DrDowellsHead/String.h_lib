@@ -51,43 +51,43 @@ int s21_memcmp(const void *str1, const void *str2, __size_internal n) {
     return 0;
 }
 
-void *s21_memcpy(void *dest, const void *src, s21_size_t n) {
+void *s21_memcpy(void *dest, const void *src, __size_internal n) {
     if (dest == S21_NULL || src == S21_NULL) return dest;
 
     unsigned char *d = (unsigned char *)dest;
     const unsigned char *s = (const unsigned char *)src;
 
     // перекрытие областей памяти - dest внутри src
-    if (d > s && d < s + s21_size_to_size_t(n)) {
+    if (d > s && d < s + n) {
         // копируем с конца
-        s21_size_t i = n;
-        while (s21_size_ne(i, S21_SIZE_ZERO)) {
-            i = s21_size_dec(i);
-            d[s21_size_to_size_t(i)] = s[s21_size_to_size_t(i)];
+        unsigned i = n;
+        while (i!=0) {
+            i--;
+            d[i] = s[i];
         }
     } else {
         // копируем с начала
-        s21_size_t i = S21_SIZE_ZERO;
-        while (s21_size_lt(i, n)) {
+        unsigned i = 0;
+        while (i<n) {
             // копируем байты без каких-либо проверок
-            d[s21_size_to_size_t(i)] = s[s21_size_to_size_t(i)];
-            i = s21_size_inc(i);
+            d[i] = s[i];
+            i++;
         }
     }
     return dest;
 }
 
-void *s21_memset(void *str, int c, s21_size_t n) {
+void *s21_memset(void *str, int c, __size_internal n) {
     if (str == S21_NULL) return S21_NULL;
-    if (s21_size_eq(n, S21_SIZE_ZERO)) return str;
+    if (n==0) return str;
 
     unsigned char *ptr = (unsigned char *)str;
     unsigned char value = (unsigned char)c;
 
-    s21_size_t i = S21_SIZE_ZERO;
-    while (s21_size_lt(i, n)) {
-        ptr[s21_size_to_size_t(i)] = value;
-        i = s21_size_inc(i);
+    __size_internal i = 0;
+    while (i<n) {
+        ptr[i] = value;
+        i++;
     }
 
     return str;
@@ -119,7 +119,7 @@ char *s21_strncpy(char *dest, const char *src, __size_internal n) {
     return original_dest;
 }
 
-char *s21_strncat(char *dest, const char *src, s21_size_t n) {
+char *s21_strncat(char *dest, const char *src, __size_internal n) {
     if (dest == S21_NULL) return S21_NULL;
     if (src == S21_NULL) return dest;
 
@@ -127,8 +127,9 @@ char *s21_strncat(char *dest, const char *src, s21_size_t n) {
     while (*dest_end != '\0') dest_end++;
 
     s21_size_t i = S21_SIZE_ZERO;
+    s21_size_t j = s21_size_make(n);
 
-    while (s21_size_lt(i, n) && src[s21_size_to_size_t(i)] != '\0') {
+    while (s21_size_lt(i, j) && src[s21_size_to_size_t(i)] != '\0') {
         *dest_end++ = src[s21_size_to_size_t(i)];
         i = s21_size_inc(i);
     }
@@ -211,9 +212,9 @@ __size_internal s21_strlen(const char *str) {
     return i.__value;
 }
 
-s21_size_t s21_strcspn(const char *str1, const char *str2) {
+__size_internal s21_strcspn(const char *str1, const char *str2) {
     if (str1 == S21_NULL || str2 == S21_NULL) {
-        return S21_SIZE_ZERO;
+        return 0;
     }
 
     s21_size_t i = S21_SIZE_ZERO;
@@ -237,7 +238,7 @@ s21_size_t s21_strcspn(const char *str1, const char *str2) {
         i = s21_size_inc(i);
     }
 
-    return i;
+    return i.__value;
 }
 
 char *s21_strpbrk(const char *str1, const char *str2) {
@@ -447,15 +448,15 @@ void *s21_to_lower(const char *str) {
     return (void *)out;
 }
 
-void *s21_insert(const char *src, const char *str, size_t start_index) {
+void *s21_insert(const char *src, const char *str, s21_size_t start_index) {
     if (src == S21_NULL || str == S21_NULL) return S21_NULL;
 
     // Это для упрощения записи. Теперь idx = start_index
-    s21_size_t idx = s21_size_make((__size_internal)start_index);
+    s21_size_t idx = start_index;
 
     // Получение длин строк
-    s21_size_t src_len = s21_size_make((__size_internal)s21_strlen(src));
-    s21_size_t str_len = s21_size_make((__size_internal)s21_strlen(str));
+    s21_size_t src_len = s21_size_make(s21_strlen(src));
+    s21_size_t str_len = s21_size_make(s21_strlen(str));
 
     if (s21_size_gt(idx, src_len)) return S21_NULL;
 
@@ -502,7 +503,7 @@ void *trim(const char *src, const char *trim_chars) {
         s21_size_t bytes = s21_size_add(end, S21_SIZE_ONE);
         char *copy = (char *)malloc(s21_size_to_size_t(bytes));
         if (copy == S21_NULL) return S21_NULL;
-        s21_memcpy(copy, src, end);
+        s21_memcpy(copy, src, end.__value);
         copy[s21_size_to_size_t(end)] = '\0';
         return (void *)copy;
     }
@@ -530,7 +531,7 @@ void *trim(const char *src, const char *trim_chars) {
 
     // Копирование подстроки src[start .. start+len-1] в dest
     const char *src_ptr = src + s21_size_to_size_t(start);
-    s21_memcpy(dest, src_ptr, len);
+    s21_memcpy(dest, src_ptr, len.__value);
 
     dest[s21_size_to_size_t(len)] = '\0';
 
