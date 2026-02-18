@@ -7,7 +7,7 @@
 #include "s21_errors.h"
 
 void *s21_memchr(const void *str, int c, __size_internal n) {
-    if( str == S21_NULL ) return S21_NULL;
+    if (str == S21_NULL) return S21_NULL;
 
     const unsigned char *byte_ptr = (const unsigned char *)str;
     unsigned char target = (unsigned char)c;
@@ -17,9 +17,9 @@ void *s21_memchr(const void *str, int c, __size_internal n) {
     s21_size_t j = s21_size_make(n);
     bool found = 0;
 
-    while(s21_size_lt(i,j) && !found){
-        if(byte_ptr[s21_size_to_size_t(i)] == target ){
-            found_ptr = (void *)(byte_ptr+s21_size_to_size_t(i));
+    while (s21_size_lt(i, j) && !found) {
+        if (byte_ptr[s21_size_to_size_t(i)] == target) {
+            found_ptr = (void *)(byte_ptr + s21_size_to_size_t(i));
             found = true;
         }
         i = s21_size_inc(i);
@@ -28,25 +28,26 @@ void *s21_memchr(const void *str, int c, __size_internal n) {
     return found_ptr;
 }
 
-//вернёт 0, если есть равенство, <0, если str1<str2(побайтно), >0 - иначе
-int s21_memcmp(const void* str1, const void* str2, __size_internal n) {
+// вернёт 0, если есть равенство, <0, если str1<str2(побайтно), >0 - иначе
+int s21_memcmp(const void *str1, const void *str2, __size_internal n) {
     // Проверки на NULL
     if (str1 == S21_NULL && str2 == S21_NULL) return 0;
-    if (str1 == S21_NULL || str2 == S21_NULL) return (str1 == S21_NULL) ? -1 : 1;
-    
+    if (str1 == S21_NULL || str2 == S21_NULL)
+        return (str1 == S21_NULL) ? -1 : 1;
+
     // Быстрая проверка
     if (n == 0) return 0;
-    
+
     const unsigned char *p1 = str1;
     const unsigned char *p2 = str2;
-    
+
     // Простой цикл for
     for (size_t i = 0; i < (size_t)n; i++) {
         if (p1[i] != p2[i]) {
             return p1[i] - p2[i];  // Приведение к int происходит автоматически
         }
     }
-    
+
     return 0;
 }
 
