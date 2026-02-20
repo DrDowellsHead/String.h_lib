@@ -5,6 +5,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -std=gnu11 -g -Wno-stringop-truncation -Wno-error=comment
 CFLAGS_COV = -fprofile-arcs -ftest-coverage
 LDFLAGS_COV = -fprofile-arcs -ftest-coverage
+TEST_CFLAGS = $(CFLAGS) -include string.h -include stdlib.h
 
 UNAME := $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -19,35 +20,13 @@ REPORT_DIR = reports
 TESTS_DIR = tests
 
 # Файлы проекта
-LIB_SRC = s21_string.c
+LIB_SRC = s21_string.c s21_sscanf.c
 LIB_HEADER = s21_string.h
 MAIN_SRC = main.c
-TEST_SRC = $(TESTS_DIR)/test_s21_strlen.c \
-$(TESTS_DIR)/test_s21_strncmp.c \
-$(TESTS_DIR)/test_s21_strncpy.c \
-$(TESTS_DIR)/test_s21_memchr.c \
-$(TESTS_DIR)/test_s21_memcmp.c \
-$(TESTS_DIR)/test_s21_memcpy.c \
-$(TESTS_DIR)/test_s21_memset.c \
-$(TESTS_DIR)/test_s21_strncat.c \
-$(TESTS_DIR)/test_s21_strstr.c \
-$(TESTS_DIR)/test_s21_strcspn.c \
-$(TESTS_DIR)/test_s21_strpbrk.c \
-$(TESTS_DIR)/test_s21_strtok.c
-TEST_HEADER = $(TESTS_DIR)/test_s21_strlen.h \
-$(TESTS_DIR)/test_s21_strncmp.h \
-$(TESTS_DIR)/test_s21_strncpy.h \
-$(TESTS_DIR)/test_s21_memchr.h \
-$(TESTS_DIR)/test_s21_memcmp.h \
-$(TESTS_DIR)/test_s21_memcpy.h \
-$(TESTS_DIR)/test_s21_memset.h \
-$(TESTS_DIR)/test_s21_strncat.h \
-$(TESTS_DIR)/test_s21_strstr.h \
-$(TESTS_DIR)/test_s21_strcspn.h \
-$(TESTS_DIR)/test_s21_strpbrk.h \
-$(TESTS_DIR)/test_s21_strtok.h \
-$(TESTS_DIR)/test_common_functions.h 
+TEST_SRC_ALL = $(wildcard $(TESTS_DIR)/test_*.c)
+TEST_SRC = $(filter-out $(TESTS_DIR)/test_s21_string.c,$(TEST_SRC_ALL))
 
+LIB_OBJ = $(patsubst %.c,$(BUILD_DIR)/%.o,$(LIB_SRC))
 
 # Исполняемые файлы
 TEST_EXEC = $(BUILD_DIR)/test_runner
@@ -67,17 +46,17 @@ all: test
 # ============================================
 
 # Компиляция библиотеки
-$(BUILD_DIR)/s21_string.o: $(LIB_SRC) $(LIB_HEADER) | $(BUILD_DIR)
-	$(CC) $(CFLAGS) -c $(LIB_SRC) -o $@
+$(BUILD_DIR)/%.o: %.c $(LIB_HEADER) | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Сборка статической библиотеки
-s21_string.a: $(BUILD_DIR)/s21_string.o
-	ar rcs $@ $<
+s21_string.a: $(LIB_OBJ)
+	ar rcs $@ $^
 	@echo "Библиотека создана: $@"
 
 # Сборка тестового раннера
 $(TEST_EXEC): $(MAIN_SRC) $(TEST_SRC) s21_string.a | $(BUILD_DIR)
-	$(CC) $(CFLAGS) -o $@ $(MAIN_SRC) $(TEST_SRC) s21_string.a $(TEST_FLAGS) -I. -I$(TESTS_DIR)
+	$(CC) $(TEST_CFLAGS) -o $@ $(MAIN_SRC) $(TEST_SRC) s21_string.a $(TEST_FLAGS) -I. -I$(TESTS_DIR)
 
 # ============================================
 # СБОРКА С ПОКРЫТИЯ

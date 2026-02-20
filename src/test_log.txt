@@ -14,9 +14,113 @@ tests/test_s21_strncmp.c:21:P:Core:test_strncmp_greater:0: Passed
 tests/test_s21_strncmp.c:27:P:Core:test_strncmp_zero:0: Passed
 tests/test_s21_strncmp.c:36:P:Core:test_strncmp_partital:0: Passed
 Running suite s21_strncpy
-tests/test_s21_strncpy.c:13:P:Core:test_strncpy_basic:0: Passed
-tests/test_s21_strncpy.c:23:P:Core:test_strncpy_greater:0: Passed
-tests/test_s21_strncpy.c:33:P:Core:test_strncpy_smaller:0: Passed
-tests/test_s21_strncpy.c:48:P:Core:test_strlen_random:0: Passed
+tests/test_s21_strncpy.c:14:P:Core:test_strncpy_basic:0: Passed
+tests/test_s21_strncpy.c:24:P:Core:test_strncpy_greater:0: Passed
+tests/test_s21_strncpy.c:34:P:Core:test_strncpy_smaller:0: Passed
+tests/test_s21_strncpy.c:49:P:Core:test_strlen_random:0: Passed
+Running suite s21_memchr
+tests/test_s21_memchr.c:12:P:Core Comparison:test_zero_length_standard:0: Passed
+tests/test_s21_memchr.c:22:P:Core Comparison:test_find_at_beginning_standard:0: Passed
+tests/test_s21_memchr.c:22:P:Core Comparison:test_find_in_middle_standard:0: Passed
+tests/test_s21_memchr.c:22:P:Core Comparison:test_find_at_end_standard:0: Passed
+tests/test_s21_memchr.c:35:P:Core Comparison:test_char_not_found_standard:0: Passed
+tests/test_s21_memchr.c:98:P:Core Comparison:test_find_null_terminator_standard:0: Passed
+tests/test_s21_memchr.c:22:P:Core Comparison:test_find_beyond_n_standard:0: Passed
+tests/test_s21_memchr.c:123:P:Boundary Cases:test_binary_data_standard:0: Passed
+tests/test_s21_memchr.c:137:P:Boundary Cases:test_negative_char_standard:0: Passed
+tests/test_s21_memchr.c:35:P:Boundary Cases:test_large_int_char_standard:0: Passed
+tests/test_s21_memchr.c:35:P:Boundary Cases:test_boundary_n_standard:0: Passed
+tests/test_s21_memchr.c:22:P:Boundary Cases:test_repeated_chars_standard:0: Passed
+Running suite s21_memcmp
+tests/test_s21_memcmp.c:16:P:Core Tests:test_zero_length:0: Passed
+tests/test_s21_memcmp.c:16:P:Core Tests:test_equal_strings:0: Passed
+tests/test_s21_memcmp.c:16:P:Core Tests:test_str1_less_first_byte:0: Passed
+tests/test_s21_memcmp.c:16:P:Core Tests:test_str1_greater_first_byte:0: Passed
+tests/test_s21_memcmp.c:16:P:Core Tests:test_str1_less_later_byte:0: Passed
+tests/test_s21_memcmp.c:16:P:Core Tests:test_str1_greater_later_byte:0: Passed
+tests/test_s21_memcmp.c:16:P:Boundary Cases:test_binary_data:0: Passed
+tests/test_s21_memcmp.c:16:P:Boundary Cases:test_strings_with_null_bytes:0: Passed
+tests/test_s21_memcmp.c:16:P:Boundary Cases:test_boundary_n_values:0: Passed
+tests/test_s21_memcmp.c:16:P:Boundary Cases:test_edge_byte_values:0: Passed
+tests/test_s21_memcmp.c:16:P:Boundary Cases:test_partial_comparison:0: Passed
+tests/test_s21_memcmp.c:16:P:Boundary Cases:test_different_lengths:0: Passed
+Running suite s21_memcpy
+tests/test_s21_memcpy.c:48:P:Core Tests:test_memcpy_random_strings:0: Passed
+tests/test_s21_memcpy.c:48:P:Core Tests:test_memcpy_random_data_various_sizes:0: Passed
+tests/test_s21_memcpy.c:48:P:Boundary Cases:test_memcpy_random_overlap_cases:0: Passed
+Running suite s21_memset
+tests/test_s21_memset.c:32:P:Core Tests:test_memset_basic_zero:0: Passed
+tests/test_s21_memset.c:32:P:Core Tests:test_memset_basic_char:0: Passed
+tests/test_s21_memset.c:32:P:Core Tests:test_memset_partial:0: Passed
+tests/test_s21_memset.c:80:P:Core Tests:test_memset_zero_size:0: Passed
+tests/test_s21_memset.c:32:P:Core Tests:test_memset_negative_char:0: Passed
+tests/test_s21_memset.c:32:P:Core Tests:test_memset_int_array:0: Passed
+tests/test_s21_memset.c:32:P:Boundary Cases:test_memset_single_byte:0: Passed
+tests/test_s21_memset.c:32:P:Boundary Cases:test_memset_char_overflow:0: Passed
+Running suite s21_strncat
+tests/test_s21_strncat.c:17:P:Core Tests:test_s21_strncat_normal:0: Passed
+tests/test_s21_strncat.c:32:P:Core Tests:test_s21_strncat_full_copy:0: Passed
+tests/test_s21_strncat.c:47:P:Core Tests:test_s21_strncat_zero:0: Passed
+tests/test_s21_strncat.c:62:P:Core Tests:test_s21_strncat_empty_src:0: Passed
+tests/test_s21_strncat.c:77:P:Core Tests:test_s21_strncat_empty_dest:0: Passed
+tests/test_s21_strncat.c:92:P:Core Tests:test_s21_strncat_equal_length:0: Passed
+tests/test_s21_strncat.c:103:P:Boundary Cases:test_s21_strncat_null_dest:0: Passed
+tests/test_s21_strncat.c:115:P:Boundary Cases:test_s21_strncat_null_src:0: Passed
+tests/test_s21_strncat.c:130:P:Boundary Cases:test_s21_strncat_large_n:0: Passed
+tests/test_s21_strncat.c:144:P:Boundary Cases:test_s21_strncat_self_copy:0: Passed
+Running suite s21_strstr
+tests/test_s21_strstr.c:13:P:Core Tests:test_s21_strstr_beginning:0: Passed
+tests/test_s21_strstr.c:26:P:Core Tests:test_s21_strstr_middle:0: Passed
+tests/test_s21_strstr.c:39:P:Core Tests:test_s21_strstr_end:0: Passed
+tests/test_s21_strstr.c:51:P:Core Tests:test_s21_strstr_not_found:0: Passed
+tests/test_s21_strstr.c:114:P:Core Tests:test_s21_strstr_single_char:0: Passed
+tests/test_s21_strstr.c:166:P:Core Tests:test_s21_strstr_whole_string:0: Passed
+tests/test_s21_strstr.c:64:P:Boundary Cases:test_s21_strstr_empty_needle:0: Passed
+tests/test_s21_strstr.c:76:P:Boundary Cases:test_s21_strstr_empty_haystack:0: Passed
+tests/test_s21_strstr.c:89:P:Boundary Cases:test_s21_strstr_both_empty:0: Passed
+tests/test_s21_strstr.c:101:P:Boundary Cases:test_s21_strstr_needle_longer:0: Passed
+tests/test_s21_strstr.c:127:P:Boundary Cases:test_s21_strstr_repeated_pattern:0: Passed
+tests/test_s21_strstr.c:140:P:Boundary Cases:test_s21_strstr_case_sensitive:0: Passed
+tests/test_s21_strstr.c:153:P:Boundary Cases:test_s21_strstr_special_chars:0: Passed
+Running suite s21_strcspn
+tests/test_s21_strcspn.c:12:P:Core:test_s21_strcspn_normal:0: Passed
+tests/test_s21_strcspn.c:24:P:Core:test_s21_strcspn_no_match:0: Passed
+tests/test_s21_strcspn.c:36:P:Core:test_s21_strcspn_match_at_start:0: Passed
+tests/test_s21_strcspn.c:48:P:Core:test_s21_strcspn_match_at_end:0: Passed
+tests/test_s21_strcspn.c:60:P:Core:test_s21_strcspn_match_at_middle:0: Passed
+tests/test_s21_strcspn.c:72:P:Core:test_s21_strcspn_case_sensitive:0: Passed
+tests/test_s21_strcspn.c:97:P:Boundary:test_s21_strcspn_empty_strings:0: Passed
+tests/test_s21_strcspn.c:119:P:Boundary:test_s21_strcspn_long_and_special:0: Passed
+tests/test_s21_strcspn.c:144:P:Boundary:test_s21_strcspn_edge_chars:0: Passed
+Running suite s21_strpbrk
+tests/test_s21_strpbrk.c:12:P:Core:test_s21_strpbrk_normal:0: Passed
+tests/test_s21_strpbrk.c:24:P:Core:test_s21_strpbrk_no_match:0: Passed
+tests/test_s21_strpbrk.c:37:P:Core:test_s21_strpbrk_match_at_start:0: Passed
+tests/test_s21_strpbrk.c:49:P:Core:test_s21_strpbrk_match_at_end:0: Passed
+tests/test_s21_strpbrk.c:61:P:Core:test_s21_strpbrk_match_at_middle:0: Passed
+tests/test_s21_strpbrk.c:73:P:Core:test_s21_strpbrk_case_sensitive:0: Passed
+tests/test_s21_strpbrk.c:98:P:Boundary:test_s21_strpbrk_empty_strings:0: Passed
+tests/test_s21_strpbrk.c:121:P:Boundary:test_s21_strpbrk_long_and_special:0: Passed
+tests/test_s21_strpbrk.c:146:P:Boundary:test_s21_strpbrk_edge_chars:0: Passed
+Running suite s21_strtok
+tests/test_s21_strtok.c:12:P:Core:test_s21_strtok_normal_single_delim:0: Passed
+tests/test_s21_strtok.c:24:P:Core:test_s21_strtok_multiple_delimiters:0: Passed
+tests/test_s21_strtok.c:36:P:Core:test_s21_strtok_different_delim_sets:0: Passed
+tests/test_s21_strtok.c:48:P:Core:test_s21_strtok_starts_with_delim:0: Passed
+tests/test_s21_strtok.c:60:P:Core:test_s21_strtok_ends_with_delim:0: Passed
+tests/test_s21_strtok.c:72:P:Core:test_s21_strtok_special_chars_delim:0: Passed
+tests/test_s21_strtok.c:86:P:Boundary:test_s21_strtok_empty_string:0: Passed
+tests/test_s21_strtok.c:97:P:Boundary:test_s21_strtok_empty_delim:0: Passed
+Running suite s21_sscanf
+tests/test_s21_sscanf.c:28:P:core:test_s21_sscanf_d_basic:0: Passed
+tests/test_s21_sscanf.c:43:P:core:test_s21_sscanf_i_autobase:0: Passed
+tests/test_s21_sscanf.c:58:P:core:test_s21_sscanf_uox:0: Passed
+tests/test_s21_sscanf.c:67:P:core:test_s21_sscanf_percent_literal:0: Passed
+tests/test_s21_sscanf.c:11:P:core:test_s21_sscanf_s_basic_width:0: Passed
+tests/test_s21_sscanf.c:94:P:core:test_s21_sscanf_c_no_skip_space:0: Passed
+tests/test_s21_sscanf.c:103:P:core:test_s21_sscanf_suppression_star:0: Passed
+tests/test_s21_sscanf.c:11:P:core:test_s21_sscanf_n_counts_and_no_assign_inc:0: Passed
+tests/test_s21_sscanf.c:131:P:core:test_s21_sscanf_p_pointer:0: Passed
+tests/test_s21_sscanf.c:145:P:core:test_s21_sscanf_float_basic:0: Passed
 Results for all suites run:
-100%: Checks: 17, Failures: 0, Errors: 0
+100%: Checks: 111, Failures: 0, Errors: 0
