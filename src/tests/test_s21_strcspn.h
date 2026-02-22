@@ -5,5 +5,4 @@
 
 Suite *strcspn_suite(void);
 
-
-#endif // TEST_S21_STRCSPN_H
+#endif  // TEST_S21_STRCSPN_H

@@ -5,5 +5,4 @@
 
 Suite *strncat_suite(void);
 
-
-#endif // TEST_S21_STRNCAT_H
+#endif  // TEST_S21_STRNCAT_H

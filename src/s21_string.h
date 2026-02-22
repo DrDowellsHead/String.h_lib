@@ -26,7 +26,7 @@ typedef uintptr_t __size_internal;
 
 // наш тип - это обёртка над базовым типом
 typedef struct s21_size {
-    __size_internal __value;
+  __size_internal __value;
 } s21_size_t;
 
 // определяем константы во избежание смешивания со стандартными int-типами
@@ -46,64 +46,64 @@ typedef struct s21_size {
 // функции встраивается в код без стека вызовов функции для совместимости
 // преобразуем в size_t
 static inline size_t s21_size_to_size_t(s21_size_t s) {
-    return (size_t)s.__value;
+  return (size_t)s.__value;
 }
 
 // создание своего типа из литерала
 static inline s21_size_t s21_size_make(__size_internal value) {
-    return (s21_size_t){value};
+  return (s21_size_t){value};
 }
 
 // арифметические операции над своим типом
 static inline s21_size_t s21_size_add(s21_size_t a, s21_size_t b) {
-    return (s21_size_t){a.__value + b.__value};
+  return (s21_size_t){a.__value + b.__value};
 }
 
 static inline s21_size_t s21_size_sub(s21_size_t a, s21_size_t b) {
-    return (s21_size_t){a.__value - b.__value};
+  return (s21_size_t){a.__value - b.__value};
 }
 
 static inline s21_size_t s21_size_mul(s21_size_t a, s21_size_t b) {
-    return (s21_size_t){a.__value * b.__value};
+  return (s21_size_t){a.__value * b.__value};
 }
 
 static inline s21_size_t s21_size_div(s21_size_t a, s21_size_t b) {
-    return (s21_size_t){a.__value / b.__value};
+  return (s21_size_t){a.__value / b.__value};
 }
 
 // операторы сравнения
 static inline int s21_size_eq(s21_size_t a, s21_size_t b) {
-    return a.__value == b.__value;
+  return a.__value == b.__value;
 }
 
 static inline int s21_size_lt(s21_size_t a, s21_size_t b) {
-    return a.__value < b.__value;
+  return a.__value < b.__value;
 }
 
 static inline int s21_size_gt(s21_size_t a, s21_size_t b) {
-    return a.__value > b.__value;
+  return a.__value > b.__value;
 }
 
 static inline int s21_size_ne(s21_size_t a, s21_size_t b) {
-    return a.__value != b.__value;
+  return a.__value != b.__value;
 }
 
 // инкремент и декремент
 static inline s21_size_t s21_size_inc(s21_size_t s) {
-    return (s21_size_t){s.__value + 1};
+  return (s21_size_t){s.__value + 1};
 }
 
 static inline s21_size_t s21_size_dec(s21_size_t s) {
-    return (s21_size_t){s.__value - 1};
+  return (s21_size_t){s.__value - 1};
 }
 
 // проверка переполнения(выхода за область допустимых значений)
 static inline int s21_size_would_overflow_add(s21_size_t a, s21_size_t b) {
-    return a.__value > SIZE_MAX - b.__value;
+  return a.__value > SIZE_MAX - b.__value;
 }
 
 static inline int s21_size_would_overflow_mul(s21_size_t a, s21_size_t b) {
-    return b.__value != 0 && a.__value > SIZE_MAX / b.__value;
+  return b.__value != 0 && a.__value > SIZE_MAX / b.__value;
 }
 
 // функции для работы со строками

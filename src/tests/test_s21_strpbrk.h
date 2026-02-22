@@ -5,4 +5,4 @@
 
 Suite *strpbrk_suite(void);
 
-#endif // TEST_S21_STRPBRK_H
+#endif  // TEST_S21_STRPBRK_H

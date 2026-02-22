@@ -3,7 +3,7 @@
 
 #include <check.h>
 
-Suite *strncpy_suite(void);
+Suite* strncpy_suite(void);
 
 /* Вспомогательные функции */
 char* random_string(int length);
