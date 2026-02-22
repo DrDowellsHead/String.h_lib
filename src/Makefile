@@ -20,7 +20,7 @@ REPORT_DIR = reports
 TESTS_DIR = tests
 
 # Файлы проекта
-LIB_SRC = s21_string.c s21_sscanf.c
+LIB_SRC = s21_string.c s21_sscanf.c s21_sprintf.c
 LIB_HEADER = s21_string.h
 MAIN_SRC = main.c
 TEST_SRC_ALL = $(wildcard $(TESTS_DIR)/test_*.c)

@@ -5,5 +5,4 @@
 
 Suite *strtok_suite(void);
 
-
-#endif // TEST_S21_STRTOK_H
+#endif  // TEST_S21_STRTOK_H

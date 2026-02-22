@@ -11,7 +11,12 @@
 #include "tests/test_s21_strcspn.h"
 #include "tests/test_s21_strpbrk.h"
 #include "tests/test_s21_strtok.h"
+#include "tests/test_s21_to_upper.h"
+#include "tests/test_s21_to_lower.h"
+#include "tests/test_s21_insert.h"
+#include "tests/test_s21_trim.h"
 #include "tests/test_s21_sscanf.h"
+#include "tests/test_s21_sprintf.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -29,7 +34,12 @@ int main(void) {
     Suite *s_strcspn = strcspn_suite();
     Suite *s_strpbrk = strpbrk_suite();
     Suite *s_strtok = strtok_suite();
+    Suite *s_to_upper = to_upper_suite();
+    Suite *s_to_lower = to_lower_suite();
+    Suite *s_insert = insert_suite();
+    Suite *s_trim = trim_suite();
     Suite *s_sscanf = sscanf_suite();
+    Suite *s_sprintf = sprintf_suite();
 
     // Создаем тестовый раннер
     SRunner *sr = srunner_create(s_strlen);
@@ -44,7 +54,12 @@ int main(void) {
     srunner_add_suite(sr, s_strcspn);
     srunner_add_suite(sr, s_strpbrk);
     srunner_add_suite(sr, s_strtok);
+    srunner_add_suite(sr, s_to_upper);
+    srunner_add_suite(sr, s_to_lower);
+    srunner_add_suite(sr, s_insert);
+    srunner_add_suite(sr, s_trim);
     srunner_add_suite(sr, s_sscanf);
+    srunner_add_suite(sr, s_sprintf);
 
     // Настраиваем отчеты
     srunner_set_fork_status(sr, CK_NOFORK);

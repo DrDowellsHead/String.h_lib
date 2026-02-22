@@ -61,14 +61,14 @@ void *s21_memcpy(void *dest, const void *src, __size_internal n) {
     if (d > s && d < s + n) {
         // копируем с конца
         unsigned i = n;
-        while (i!=0) {
+        while (i != 0) {
             i--;
             d[i] = s[i];
         }
     } else {
         // копируем с начала
         unsigned i = 0;
-        while (i<n) {
+        while (i < n) {
             // копируем байты без каких-либо проверок
             d[i] = s[i];
             i++;
@@ -79,13 +79,13 @@ void *s21_memcpy(void *dest, const void *src, __size_internal n) {
 
 void *s21_memset(void *str, int c, __size_internal n) {
     if (str == S21_NULL) return S21_NULL;
-    if (n==0) return str;
+    if (n == 0) return str;
 
     unsigned char *ptr = (unsigned char *)str;
     unsigned char value = (unsigned char)c;
 
     __size_internal i = 0;
-    while (i<n) {
+    while (i < n) {
         ptr[i] = value;
         i++;
     }
@@ -475,7 +475,7 @@ void *s21_insert(const char *src, const char *str, s21_size_t start_index) {
         out[s21_size_to_size_t(i)] = src[s21_size_to_size_t(i)];
     }
 
-    for (s21_size_t j = S21_SIZE_ZERO; s21_size_lt(j, idx);
+    for (s21_size_t j = S21_SIZE_ZERO; s21_size_lt(j, str_len);
          j = s21_size_inc(j)) {
         s21_size_t pos = s21_size_add(idx, j);
         out[s21_size_to_size_t(pos)] = str[s21_size_to_size_t(j)];
@@ -491,14 +491,15 @@ void *s21_insert(const char *src, const char *str, s21_size_t start_index) {
     return (void *)out;
 }
 
-void *trim(const char *src, const char *trim_chars) {
+void *s21_trim(const char *src, const char *trim_chars) {
     if (src == S21_NULL || trim_chars == S21_NULL) return S21_NULL;
 
     // end = длина строки, то есть индекс после последнего символа
     s21_size_t start = S21_SIZE_ZERO;
     s21_size_t end = s21_size_make((__size_internal)s21_strlen(src));
 
-    // Если trim_chars пустая строка - то возвращается пустая строка
+    // Код делает копию src (что логичнее): если нечем триммить, возвращается
+    // исходник (src) как есть
     if (*trim_chars == '\0') {
         s21_size_t bytes = s21_size_add(end, S21_SIZE_ONE);
         char *copy = (char *)malloc(s21_size_to_size_t(bytes));

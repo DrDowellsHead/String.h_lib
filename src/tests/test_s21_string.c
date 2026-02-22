@@ -88,7 +88,7 @@ START_TEST(test_strncpy_greater) {
     s21_strncpy(dest1, "Hello World", 5);
     strncpy(dest2, "Hello World", 5);
 
-    ck_assert_uint_eq(dest1, dest2, 5);
+    ck_assert_uint_eq(0, memcpy(dest1, dest2, 5));
 }
 END_TEST
 
@@ -132,9 +132,9 @@ START_TEST(test_strlen_random) {
         char* str = random_string(len);
 
         size_t expected = strlen(str);
-        s21_size_t actual = s21_strlen(str);
+        __size_internal actual = s21_strlen(str);
 
-        ck_assert_uint_eq(expected, actual);
+        ck_assert_uint_eq((__size_internal)expected, actual);
 
         free(str);
     }

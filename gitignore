@@ -37,6 +37,7 @@
 *.hex
 *.o
 *.a
+/src/build
 
 # Debug files
 *.dSYM/
@@ -58,3 +59,8 @@ dkms.conf
 
 # Setting
 .vscode
+
+# Logs
+*.txt
+*.xml
+*.log

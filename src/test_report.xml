@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="http://check.sourceforge.net/xml/check_unittest.xslt"?>
 <testsuites xmlns="http://check.sourceforge.net/ns">
-  <datetime>2026-02-20 04:25:39</datetime>
+  <datetime>2026-02-22 04:15:55</datetime>
   <suite>
     <title>s21_strlen</title>
     <test result="success">
@@ -18,7 +18,7 @@
       <fn>test_s21_strlen.c:15</fn>
       <id>test_basic_string</id>
       <iteration>0</iteration>
-      <duration>0.000013</duration>
+      <duration>0.000030</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -36,7 +36,7 @@
       <fn>test_s21_strlen.c:31</fn>
       <id>test_null_pointer</id>
       <iteration>0</iteration>
-      <duration>0.000011</duration>
+      <duration>0.000010</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -54,7 +54,7 @@
       <fn>test_s21_strlen.c:37</fn>
       <id>test_long_string</id>
       <iteration>0</iteration>
-      <duration>0.000015</duration>
+      <duration>0.000014</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -72,7 +72,7 @@
       <fn>test_s21_strlen.c:49</fn>
       <id>test_mixed_content</id>
       <iteration>0</iteration>
-      <duration>0.000012</duration>
+      <duration>0.000011</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -84,7 +84,7 @@
       <fn>test_s21_strncmp.c:9</fn>
       <id>test_strncmp_equal</id>
       <iteration>0</iteration>
-      <duration>0.000016</duration>
+      <duration>0.000013</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -102,7 +102,7 @@
       <fn>test_s21_strncmp.c:21</fn>
       <id>test_strncmp_greater</id>
       <iteration>0</iteration>
-      <duration>0.000011</duration>
+      <duration>0.000013</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -111,7 +111,7 @@
       <fn>test_s21_strncmp.c:27</fn>
       <id>test_strncmp_zero</id>
       <iteration>0</iteration>
-      <duration>0.000012</duration>
+      <duration>0.000011</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -120,7 +120,7 @@
       <fn>test_s21_strncmp.c:36</fn>
       <id>test_strncmp_partital</id>
       <iteration>0</iteration>
-      <duration>0.000013</duration>
+      <duration>0.000012</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -159,7 +159,7 @@
       <fn>test_s21_strncpy.c:49</fn>
       <id>test_strlen_random</id>
       <iteration>0</iteration>
-      <duration>0.000128</duration>
+      <duration>0.000113</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -180,7 +180,7 @@
       <fn>test_s21_memchr.c:22</fn>
       <id>test_find_at_beginning_standard</id>
       <iteration>0</iteration>
-      <duration>0.000021</duration>
+      <duration>0.000020</duration>
       <description>Core Comparison</description>
       <message>Passed</message>
     </test>
@@ -189,7 +189,7 @@
       <fn>test_s21_memchr.c:22</fn>
       <id>test_find_in_middle_standard</id>
       <iteration>0</iteration>
-      <duration>0.000020</duration>
+      <duration>0.000021</duration>
       <description>Core Comparison</description>
       <message>Passed</message>
     </test>
@@ -198,7 +198,7 @@
       <fn>test_s21_memchr.c:22</fn>
       <id>test_find_at_end_standard</id>
       <iteration>0</iteration>
-      <duration>0.000018</duration>
+      <duration>0.000017</duration>
       <description>Core Comparison</description>
       <message>Passed</message>
     </test>
@@ -243,7 +243,7 @@
       <fn>test_s21_memchr.c:137</fn>
       <id>test_negative_char_standard</id>
       <iteration>0</iteration>
-      <duration>0.000019</duration>
+      <duration>0.000018</duration>
       <description>Boundary Cases</description>
       <message>Passed</message>
     </test>
@@ -252,7 +252,7 @@
       <fn>test_s21_memchr.c:35</fn>
       <id>test_large_int_char_standard</id>
       <iteration>0</iteration>
-      <duration>0.000017</duration>
+      <duration>0.000016</duration>
       <description>Boundary Cases</description>
       <message>Passed</message>
     </test>
@@ -261,7 +261,7 @@
       <fn>test_s21_memchr.c:35</fn>
       <id>test_boundary_n_standard</id>
       <iteration>0</iteration>
-      <duration>0.000026</duration>
+      <duration>0.000025</duration>
       <description>Boundary Cases</description>
       <message>Passed</message>
     </test>
@@ -282,7 +282,7 @@
       <fn>test_s21_memcmp.c:16</fn>
       <id>test_zero_length</id>
       <iteration>0</iteration>
-      <duration>0.000011</duration>
+      <duration>0.000012</duration>
       <description>Core Tests</description>
       <message>Passed</message>
     </test>
@@ -291,7 +291,7 @@
       <fn>test_s21_memcmp.c:16</fn>
       <id>test_equal_strings</id>
       <iteration>0</iteration>
-      <duration>0.000016</duration>
+      <duration>0.000012</duration>
       <description>Core Tests</description>
       <message>Passed</message>
     </test>
@@ -300,7 +300,7 @@
       <fn>test_s21_memcmp.c:16</fn>
       <id>test_str1_less_first_byte</id>
       <iteration>0</iteration>
-      <duration>0.000012</duration>
+      <duration>0.000011</duration>
       <description>Core Tests</description>
       <message>Passed</message>
     </test>
@@ -327,7 +327,7 @@
       <fn>test_s21_memcmp.c:16</fn>
       <id>test_str1_greater_later_byte</id>
       <iteration>0</iteration>
-      <duration>0.000011</duration>
+      <duration>0.000024</duration>
       <description>Core Tests</description>
       <message>Passed</message>
     </test>
@@ -381,7 +381,7 @@
       <fn>test_s21_memcmp.c:16</fn>
       <id>test_different_lengths</id>
       <iteration>0</iteration>
-      <duration>0.000012</duration>
+      <duration>0.000015</duration>
       <description>Boundary Cases</description>
       <message>Passed</message>
     </test>
@@ -393,7 +393,7 @@
       <fn>test_s21_memcpy.c:48</fn>
       <id>test_memcpy_random_strings</id>
       <iteration>0</iteration>
-      <duration>0.000049</duration>
+      <duration>0.000048</duration>
       <description>Core Tests</description>
       <message>Passed</message>
     </test>
@@ -411,7 +411,7 @@
       <fn>test_s21_memcpy.c:48</fn>
       <id>test_memcpy_random_overlap_cases</id>
       <iteration>0</iteration>
-      <duration>0.000286</duration>
+      <duration>0.000297</duration>
       <description>Boundary Cases</description>
       <message>Passed</message>
     </test>
@@ -423,7 +423,7 @@
       <fn>test_s21_memset.c:32</fn>
       <id>test_memset_basic_zero</id>
       <iteration>0</iteration>
-      <duration>0.000029</duration>
+      <duration>0.000012</duration>
       <description>Core Tests</description>
       <message>Passed</message>
     </test>
@@ -441,7 +441,7 @@
       <fn>test_s21_memset.c:32</fn>
       <id>test_memset_partial</id>
       <iteration>0</iteration>
-      <duration>0.000012</duration>
+      <duration>0.000011</duration>
       <description>Core Tests</description>
       <message>Passed</message>
     </test>
@@ -459,7 +459,7 @@
       <fn>test_s21_memset.c:32</fn>
       <id>test_memset_negative_char</id>
       <iteration>0</iteration>
-      <duration>0.000012</duration>
+      <duration>0.000011</duration>
       <description>Core Tests</description>
       <message>Passed</message>
     </test>
@@ -477,7 +477,7 @@
       <fn>test_s21_memset.c:32</fn>
       <id>test_memset_single_byte</id>
       <iteration>0</iteration>
-      <duration>0.000013</duration>
+      <duration>0.000011</duration>
       <description>Boundary Cases</description>
       <message>Passed</message>
     </test>
@@ -486,7 +486,7 @@
       <fn>test_s21_memset.c:32</fn>
       <id>test_memset_char_overflow</id>
       <iteration>0</iteration>
-      <duration>0.000013</duration>
+      <duration>0.000012</duration>
       <description>Boundary Cases</description>
       <message>Passed</message>
     </test>
@@ -498,7 +498,7 @@
       <fn>test_s21_strncat.c:17</fn>
       <id>test_s21_strncat_normal</id>
       <iteration>0</iteration>
-      <duration>0.000047</duration>
+      <duration>0.000012</duration>
       <description>Core Tests</description>
       <message>Passed</message>
     </test>
@@ -525,7 +525,7 @@
       <fn>test_s21_strncat.c:62</fn>
       <id>test_s21_strncat_empty_src</id>
       <iteration>0</iteration>
-      <duration>0.000013</duration>
+      <duration>0.000012</duration>
       <description>Core Tests</description>
       <message>Passed</message>
     </test>
@@ -543,7 +543,7 @@
       <fn>test_s21_strncat.c:92</fn>
       <id>test_s21_strncat_equal_length</id>
       <iteration>0</iteration>
-      <duration>0.000013</duration>
+      <duration>0.000012</duration>
       <description>Core Tests</description>
       <message>Passed</message>
     </test>
@@ -570,7 +570,7 @@
       <fn>test_s21_strncat.c:130</fn>
       <id>test_s21_strncat_large_n</id>
       <iteration>0</iteration>
-      <duration>0.000030</duration>
+      <duration>0.000013</duration>
       <description>Boundary Cases</description>
       <message>Passed</message>
     </test>
@@ -579,7 +579,7 @@
       <fn>test_s21_strncat.c:144</fn>
       <id>test_s21_strncat_self_copy</id>
       <iteration>0</iteration>
-      <duration>0.000012</duration>
+      <duration>0.000011</duration>
       <description>Boundary Cases</description>
       <message>Passed</message>
     </test>
@@ -591,7 +591,7 @@
       <fn>test_s21_strstr.c:13</fn>
       <id>test_s21_strstr_beginning</id>
       <iteration>0</iteration>
-      <duration>0.000027</duration>
+      <duration>0.000013</duration>
       <description>Core Tests</description>
       <message>Passed</message>
     </test>
@@ -609,7 +609,7 @@
       <fn>test_s21_strstr.c:39</fn>
       <id>test_s21_strstr_end</id>
       <iteration>0</iteration>
-      <duration>0.000013</duration>
+      <duration>0.000012</duration>
       <description>Core Tests</description>
       <message>Passed</message>
     </test>
@@ -654,7 +654,7 @@
       <fn>test_s21_strstr.c:76</fn>
       <id>test_s21_strstr_empty_haystack</id>
       <iteration>0</iteration>
-      <duration>0.000012</duration>
+      <duration>0.000011</duration>
       <description>Boundary Cases</description>
       <message>Passed</message>
     </test>
@@ -672,7 +672,7 @@
       <fn>test_s21_strstr.c:101</fn>
       <id>test_s21_strstr_needle_longer</id>
       <iteration>0</iteration>
-      <duration>0.000013</duration>
+      <duration>0.000011</duration>
       <description>Boundary Cases</description>
       <message>Passed</message>
     </test>
@@ -681,7 +681,7 @@
       <fn>test_s21_strstr.c:127</fn>
       <id>test_s21_strstr_repeated_pattern</id>
       <iteration>0</iteration>
-      <duration>0.000012</duration>
+      <duration>0.000013</duration>
       <description>Boundary Cases</description>
       <message>Passed</message>
     </test>
@@ -690,7 +690,7 @@
       <fn>test_s21_strstr.c:140</fn>
       <id>test_s21_strstr_case_sensitive</id>
       <iteration>0</iteration>
-      <duration>0.000012</duration>
+      <duration>0.000011</duration>
       <description>Boundary Cases</description>
       <message>Passed</message>
     </test>
@@ -711,7 +711,7 @@
       <fn>test_s21_strcspn.c:12</fn>
       <id>test_s21_strcspn_normal</id>
       <iteration>0</iteration>
-      <duration>0.000011</duration>
+      <duration>0.000012</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -720,7 +720,7 @@
       <fn>test_s21_strcspn.c:24</fn>
       <id>test_s21_strcspn_no_match</id>
       <iteration>0</iteration>
-      <duration>0.000017</duration>
+      <duration>0.000011</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -738,7 +738,7 @@
       <fn>test_s21_strcspn.c:48</fn>
       <id>test_s21_strcspn_match_at_end</id>
       <iteration>0</iteration>
-      <duration>0.000012</duration>
+      <duration>0.000011</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -747,7 +747,7 @@
       <fn>test_s21_strcspn.c:60</fn>
       <id>test_s21_strcspn_match_at_middle</id>
       <iteration>0</iteration>
-      <duration>0.000012</duration>
+      <duration>0.000011</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -756,7 +756,7 @@
       <fn>test_s21_strcspn.c:72</fn>
       <id>test_s21_strcspn_case_sensitive</id>
       <iteration>0</iteration>
-      <duration>0.000012</duration>
+      <duration>0.000011</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -774,7 +774,7 @@
       <fn>test_s21_strcspn.c:119</fn>
       <id>test_s21_strcspn_long_and_special</id>
       <iteration>0</iteration>
-      <duration>0.000015</duration>
+      <duration>0.000014</duration>
       <description>Boundary</description>
       <message>Passed</message>
     </test>
@@ -795,7 +795,7 @@
       <fn>test_s21_strpbrk.c:12</fn>
       <id>test_s21_strpbrk_normal</id>
       <iteration>0</iteration>
-      <duration>0.000012</duration>
+      <duration>0.000011</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -813,7 +813,7 @@
       <fn>test_s21_strpbrk.c:37</fn>
       <id>test_s21_strpbrk_match_at_start</id>
       <iteration>0</iteration>
-      <duration>0.000012</duration>
+      <duration>0.000011</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -849,7 +849,7 @@
       <fn>test_s21_strpbrk.c:98</fn>
       <id>test_s21_strpbrk_empty_strings</id>
       <iteration>0</iteration>
-      <duration>0.000013</duration>
+      <duration>0.000014</duration>
       <description>Boundary</description>
       <message>Passed</message>
     </test>
@@ -858,7 +858,7 @@
       <fn>test_s21_strpbrk.c:121</fn>
       <id>test_s21_strpbrk_long_and_special</id>
       <iteration>0</iteration>
-      <duration>0.000017</duration>
+      <duration>0.000016</duration>
       <description>Boundary</description>
       <message>Passed</message>
     </test>
@@ -867,7 +867,7 @@
       <fn>test_s21_strpbrk.c:146</fn>
       <id>test_s21_strpbrk_edge_chars</id>
       <iteration>0</iteration>
-      <duration>0.000015</duration>
+      <duration>0.000013</duration>
       <description>Boundary</description>
       <message>Passed</message>
     </test>
@@ -888,7 +888,7 @@
       <fn>test_s21_strtok.c:24</fn>
       <id>test_s21_strtok_multiple_delimiters</id>
       <iteration>0</iteration>
-      <duration>0.000012</duration>
+      <duration>0.000011</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -897,7 +897,7 @@
       <fn>test_s21_strtok.c:36</fn>
       <id>test_s21_strtok_different_delim_sets</id>
       <iteration>0</iteration>
-      <duration>0.000012</duration>
+      <duration>0.000011</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -924,7 +924,7 @@
       <fn>test_s21_strtok.c:72</fn>
       <id>test_s21_strtok_special_chars_delim</id>
       <iteration>0</iteration>
-      <duration>0.000011</duration>
+      <duration>0.000010</duration>
       <description>Core</description>
       <message>Passed</message>
     </test>
@@ -944,6 +944,189 @@
       <iteration>0</iteration>
       <duration>0.000011</duration>
       <description>Boundary</description>
+      <message>Passed</message>
+    </test>
+  </suite>
+  <suite>
+    <title>s21_to_upper</title>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_to_upper.c:6</fn>
+      <id>test_to_upper_null</id>
+      <iteration>0</iteration>
+      <duration>0.000011</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_to_upper.c:14</fn>
+      <id>test_to_upper_basic</id>
+      <iteration>0</iteration>
+      <duration>0.000014</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_to_upper.c:22</fn>
+      <id>test_to_upper_empty</id>
+      <iteration>0</iteration>
+      <duration>0.000012</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+  </suite>
+  <suite>
+    <title>s21_to_lower</title>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_to_lower.c:6</fn>
+      <id>test_to_lower_null</id>
+      <iteration>0</iteration>
+      <duration>0.000011</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_to_lower.c:14</fn>
+      <id>test_to_lower_basic</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_to_lower.c:22</fn>
+      <id>test_to_lower_empty</id>
+      <iteration>0</iteration>
+      <duration>0.000012</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+  </suite>
+  <suite>
+    <title>s21_insert</title>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_insert.c:7</fn>
+      <id>test_insert_nulls</id>
+      <iteration>0</iteration>
+      <duration>0.000012</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_insert.c:14</fn>
+      <id>test_insert_begin</id>
+      <iteration>0</iteration>
+      <duration>0.000012</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_insert.c:22</fn>
+      <id>test_insert_middle</id>
+      <iteration>0</iteration>
+      <duration>0.000012</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_insert.c:30</fn>
+      <id>test_insert_end</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_insert.c:36</fn>
+      <id>test_insert_bad_index</id>
+      <iteration>0</iteration>
+      <duration>0.000011</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+  </suite>
+  <suite>
+    <title>s21_trim</title>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_trim.c:8</fn>
+      <id>test_s21_trim_null_src</id>
+      <iteration>0</iteration>
+      <duration>0.000012</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_trim.c:13</fn>
+      <id>test_s21_trim_null_trim_chars</id>
+      <iteration>0</iteration>
+      <duration>0.000011</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_trim.c:20</fn>
+      <id>test_s21_trim_empty_trim_chars_returns_copy</id>
+      <iteration>0</iteration>
+      <duration>0.000012</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_trim.c:28</fn>
+      <id>test_s21_trim_basic_one_char</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_trim.c:36</fn>
+      <id>test_s21_trim_spaces</id>
+      <iteration>0</iteration>
+      <duration>0.000012</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_trim.c:44</fn>
+      <id>test_s21_trim_multi_chars</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_trim.c:52</fn>
+      <id>test_s21_trim_all_removed</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_trim.c:60</fn>
+      <id>test_s21_trim_nothing_to_trim</id>
+      <iteration>0</iteration>
+      <duration>0.000012</duration>
+      <description>core</description>
       <message>Passed</message>
     </test>
   </suite>
@@ -981,7 +1164,7 @@
       <fn>test_s21_sscanf.c:67</fn>
       <id>test_s21_sscanf_percent_literal</id>
       <iteration>0</iteration>
-      <duration>0.000013</duration>
+      <duration>0.000014</duration>
       <description>core</description>
       <message>Passed</message>
     </test>
@@ -990,7 +1173,7 @@
       <fn>test_s21_sscanf.c:11</fn>
       <id>test_s21_sscanf_s_basic_width</id>
       <iteration>0</iteration>
-      <duration>0.000023</duration>
+      <duration>0.000022</duration>
       <description>core</description>
       <message>Passed</message>
     </test>
@@ -999,7 +1182,7 @@
       <fn>test_s21_sscanf.c:94</fn>
       <id>test_s21_sscanf_c_no_skip_space</id>
       <iteration>0</iteration>
-      <duration>0.000013</duration>
+      <duration>0.000012</duration>
       <description>core</description>
       <message>Passed</message>
     </test>
@@ -1017,7 +1200,7 @@
       <fn>test_s21_sscanf.c:11</fn>
       <id>test_s21_sscanf_n_counts_and_no_assign_inc</id>
       <iteration>0</iteration>
-      <duration>0.000018</duration>
+      <duration>0.000017</duration>
       <description>core</description>
       <message>Passed</message>
     </test>
@@ -1035,10 +1218,166 @@
       <fn>test_s21_sscanf.c:145</fn>
       <id>test_s21_sscanf_float_basic</id>
       <iteration>0</iteration>
-      <duration>0.000021</duration>
+      <duration>0.000022</duration>
       <description>core</description>
       <message>Passed</message>
     </test>
   </suite>
-  <duration>0.006772</duration>
+  <suite>
+    <title>s21_sprintf</title>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_sprintf.c:18</fn>
+      <id>test_s21_sprintf_plain_text</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_sprintf.c:29</fn>
+      <id>test_s21_sprintf_percent_simple</id>
+      <iteration>0</iteration>
+      <duration>0.000014</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_sprintf.c:40</fn>
+      <id>test_s21_sprintf_percent_with_width</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_sprintf.c:53</fn>
+      <id>test_s21_sprintf_char_width_minus</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_sprintf.c:64</fn>
+      <id>test_s21_sprintf_string_width_precision</id>
+      <iteration>0</iteration>
+      <duration>0.000014</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_sprintf.c:75</fn>
+      <id>test_s21_sprintf_string_star</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_sprintf.c:90</fn>
+      <id>test_s21_sprintf_d_flags_width_precision</id>
+      <iteration>0</iteration>
+      <duration>0.000015</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_sprintf.c:102</fn>
+      <id>test_s21_sprintf_d_star_negative_width</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_sprintf.c:114</fn>
+      <id>test_s21_sprintf_zero_precision_zero_value</id>
+      <iteration>0</iteration>
+      <duration>0.000013</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_sprintf.c:130</fn>
+      <id>test_s21_sprintf_length_h_l</id>
+      <iteration>0</iteration>
+      <duration>0.000014</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_sprintf.c:147</fn>
+      <id>test_s21_sprintf_uox_hash</id>
+      <iteration>0</iteration>
+      <duration>0.000015</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_sprintf.c:161</fn>
+      <id>test_s21_sprintf_pointer_p</id>
+      <iteration>0</iteration>
+      <duration>0.000012</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_sprintf.c:174</fn>
+      <id>test_s21_sprintf_n</id>
+      <iteration>0</iteration>
+      <duration>0.000014</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_sprintf.c:189</fn>
+      <id>test_s21_sprintf_f_basic</id>
+      <iteration>0</iteration>
+      <duration>0.000017</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_sprintf.c:202</fn>
+      <id>test_s21_sprintf_e_E_basic</id>
+      <iteration>0</iteration>
+      <duration>0.000019</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_sprintf.c:217</fn>
+      <id>test_s21_sprintf_g_G_basic</id>
+      <iteration>0</iteration>
+      <duration>0.000018</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+    <test result="success">
+      <path>tests</path>
+      <fn>test_s21_sprintf.c:230</fn>
+      <id>test_s21_sprintf_Lf_long_double</id>
+      <iteration>0</iteration>
+      <duration>0.000015</duration>
+      <description>core</description>
+      <message>Passed</message>
+    </test>
+  </suite>
+  <duration>0.008456</duration>
 </testsuites>
