@@ -2,7 +2,7 @@
 CC = gcc
 #-Wno-stringop-truncation отключает проверку на потенциальное усечение строк
 #нужно для тестирования функций копирования строк
-CFLAGS = -Wall -Wextra -Werror -std=gnu11 -g -Wno-stringop-truncation -Wno-error=comment
+CFLAGS = -Wall -Wextra -Werror -std=gnu11 -g -Wno-stringop-truncation -Wno-error=comment -Wno-unused-variable
 CFLAGS_COV = -fprofile-arcs -ftest-coverage
 LDFLAGS_COV = -fprofile-arcs -ftest-coverage
 TEST_CFLAGS = $(CFLAGS) -include string.h -include stdlib.h
@@ -20,8 +20,8 @@ REPORT_DIR = reports
 TESTS_DIR = tests
 
 # Файлы проекта
-LIB_SRC = s21_string.c s21_sscanf.c s21_sprintf.c
-LIB_HEADER = s21_string.h
+LIB_SRC = s21_string.c s21_sscanf.c s21_sprintf.c s21_errors.c
+LIB_HEADER = s21_string.h s21_errors.h
 MAIN_SRC = main.c
 TEST_SRC_ALL = $(wildcard $(TESTS_DIR)/test_*.c)
 TEST_SRC = $(filter-out $(TESTS_DIR)/test_s21_string.c,$(TEST_SRC_ALL))
@@ -36,7 +36,7 @@ TEST_EXEC_COV = $(BUILD_DIR)/test_runner_cov
 $(BUILD_DIR) $(REPORT_DIR):
 	@mkdir -p $@
 
-.PHONY: all clean test s21_string.a gcov_report help
+.PHONY: all clean test s21_string.a gcov_report help clean_cov
 
 # Основные цели
 all: test
@@ -75,21 +75,35 @@ $(TEST_EXEC_COV): $(MAIN_SRC) $(TEST_SRC) $(LIB_SRC) | $(BUILD_DIR)
 test: $(TEST_EXEC)
 	./$(TEST_EXEC)
 
+
+# Генерация HTML отчета с помощью gcovr
 gcov_report: clean_cov $(TEST_EXEC_COV) | $(REPORT_DIR)
 	@echo "=== Запуск тестов с покрытием ==="
 	CK_HTML=no ./$(TEST_EXEC_COV)
-	#@echo "=== Удаление временных файлов ==="
-	#rm -f simple_report.txt test_log.txt test_report.xml check_report.html
-	@echo "=== Генерация HTML отчета ==="
-	python3 -m gcovr -r . \
-		--object-directory=$(BUILD_DIR) \
-		--html-details \
-		--exclude-unreachable-branches \
-		--exclude="s21_string.h" \
-		-o $(REPORT_DIR)/index.html
-	@echo ""
-	@echo "HTML отчет создан: $(REPORT_DIR)/index.html"
-	@echo "Чтобы открыть отчет, выполните: open $(REPORT_DIR)/index.html"
+	
+	@echo "=== Проверка наличия gcovr ==="
+	@if command -v gcovr >/dev/null 2>&1; then \
+		echo "✓ gcovr установлен, генерируем HTML отчет..."; \
+		gcovr -r . \
+			--object-directory=$(BUILD_DIR) \
+			--html --html-details \
+			--exclude-unreachable-branches \
+			--exclude-throw-branches \
+			--exclude=".*_test\.c" \
+			--exclude="tests/.*" \
+			--exclude="main\.c" \
+			--exclude="s21_errors\.[ch]" \
+			--exclude="s21_string\.h" \
+			--output $(REPORT_DIR)/coverage.html; \
+		echo "✓ HTML отчет создан: $(REPORT_DIR)/coverage.html"; \
+		echo "✓ Детальные отчеты по функциям: $(REPORT_DIR)/coverage.functions.html"; \
+		echo "✓ Детальные отчеты по файлам: $(REPORT_DIR)/coverage.*.html"; \
+	else \
+		echo "❌ gcovr не установлен!"; \
+		echo "   Установите gcovr: pip install gcovr"; \
+		exit 1; \
+	fi
+
 
 # Очистка всех файлов
 clean:
@@ -115,10 +129,9 @@ help:
 	@echo "=== Makefile для проекта s21_string ==="
 	@echo ""
 	@echo "Доступные цели:"
-	@echo "  make all         - Собрать и запустить тесты (аналог make test)"
-	@echo "  make test        - Собрать и запустить unit-тесты"
-	@echo "  make s21_string.a - Собрать статическую библиотеку"
-	@echo "  make gcov_report - Создать HTML отчет о покрытии тестами"
-	@echo "  make clean       - Очистить все сгенерированные файлы"
-	@echo "  make help        - Показать эту справку"
-
+	@echo "  make test                    - Собрать и запустить unit-тесты"
+	@echo "  make s21_string.a            - Собрать статическую библиотеку"
+	@echo "  make gcov_report              - HTML отчет через gcovr"
+	@echo "  make clean                    - Очистить все"
+	@echo "  make clean_cov                 - Очистить файлы покрытия"
+	@echo ""

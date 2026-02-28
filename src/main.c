@@ -17,6 +17,9 @@
 #include "tests/test_s21_strpbrk.h"
 #include "tests/test_s21_strstr.h"
 #include "tests/test_s21_strtok.h"
+#include "tests/test_s21_strerror.h"
+#include "tests/test_s21_strchr.h"
+#include "tests/test_s21_strrchr.h"
 #include "tests/test_s21_to_lower.h"
 #include "tests/test_s21_to_upper.h"
 #include "tests/test_s21_trim.h"
@@ -26,19 +29,24 @@ int main(void) {
   Suite *s_strlen = strlen_suite();
   Suite *s_strncmp = strncmp_suite();
   Suite *s_strncpy = strncpy_suite();
-  Suite *s_memchr = memchr_suite();
-  Suite *s_memcmp = memcmp_suite();
-  Suite *s_memcpy = memcpy_suite();
-  Suite *s_memset = memset_suite();
   Suite *s_strncat = strncat_suite();
   Suite *s_strstr = strstr_suite();
   Suite *s_strcspn = strcspn_suite();
   Suite *s_strpbrk = strpbrk_suite();
   Suite *s_strtok = strtok_suite();
+  Suite *s_strerror = strerror_suite();
+  Suite *s_strchr = strchr_suite();
+  Suite *s_strrchr = strrchr_suite();
+  Suite *s_memchr = memchr_suite();
+  Suite *s_memcmp = memcmp_suite();
+  Suite *s_memcpy = memcpy_suite();
+  Suite *s_memset = memset_suite();
+
   Suite *s_to_upper = to_upper_suite();
   Suite *s_to_lower = to_lower_suite();
   Suite *s_insert = insert_suite();
   Suite *s_trim = trim_suite();
+
   Suite *s_sscanf = sscanf_suite();
   Suite *s_sprintf = sprintf_suite();
 
@@ -55,6 +63,9 @@ int main(void) {
   srunner_add_suite(sr, s_strcspn);
   srunner_add_suite(sr, s_strpbrk);
   srunner_add_suite(sr, s_strtok);
+  srunner_add_suite(sr, s_strerror);
+  srunner_add_suite(sr, s_strchr);
+  srunner_add_suite(sr, s_strrchr);
   srunner_add_suite(sr, s_to_upper);
   srunner_add_suite(sr, s_to_lower);
   srunner_add_suite(sr, s_insert);

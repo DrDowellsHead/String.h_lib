@@ -70,7 +70,7 @@ void *s21_memcpy(void *dest, const void *src, __size_internal n) {
     while (i < n) {
       // копируем байты без каких-либо проверок
       d[i] = s[i];
-      i++;
+      i++; 
     }
   }
   return dest;
@@ -139,15 +139,13 @@ char *s21_strncat(char *dest, const char *src, __size_internal n) {
 
 char *s21_strerror(int errnum) {
   static char error_buffer[256];
-  char *result;
   if (errnum >= 0 && errnum <= S21_MAX_ERROR_COUNT) {
     s21_strncpy(error_buffer, s21_error_messages[errnum], 255);
     error_buffer[255] = '\0';
-    result = error_buffer;
   } else {
-    result = S21_NULL;
+    s21_sprintf(error_buffer, "Unknown error %d", errnum);
   }
-  return result;
+  return error_buffer;
 }
 
 char *s21_strstr(const char *haystack, const char *needle) {
@@ -516,10 +514,10 @@ void *s21_trim(const char *src, const char *trim_chars) {
     s21_size_t last = s21_size_dec(end);
     char ch = src[s21_size_to_size_t(last)];
     if (s21_strchr(trim_chars, (unsigned char)ch) == S21_NULL) break;
-    end = last;
+    end = last; //отбрасываем последний символ
   }
 
-  s21_size_t len = s21_size_sub(end, start);
+  s21_size_t len = s21_size_sub(end, start); //длина получившейся подстроки
 
   s21_size_t bytes = s21_size_add(len, S21_SIZE_ONE);
   char *dest = (char *)malloc(s21_size_to_size_t(bytes));
