@@ -2,10 +2,10 @@
 CC = gcc
 #-Wno-stringop-truncation отключает проверку на потенциальное усечение строк
 #нужно для тестирования функций копирования строк
-CFLAGS = -Wall -Wextra -Werror -std=gnu11 -g -Wno-stringop-truncation -Wno-error=comment -Wno-unused-variable
+CFLAGS = -Wall -Wextra -Werror -std=gnu11 -g -Wno-stringop-truncation -Wno-error=comment
 CFLAGS_COV = -fprofile-arcs -ftest-coverage
 LDFLAGS_COV = -fprofile-arcs -ftest-coverage
-TEST_CFLAGS = $(CFLAGS) -include string.h -include stdlib.h
+TEST_CFLAGS = $(CFLAGS)
 
 UNAME := $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -23,8 +23,7 @@ TESTS_DIR = tests
 LIB_SRC = s21_string.c s21_sscanf.c s21_sprintf.c s21_errors.c
 LIB_HEADER = s21_string.h s21_errors.h
 MAIN_SRC = main.c
-TEST_SRC_ALL = $(wildcard $(TESTS_DIR)/test_*.c)
-TEST_SRC = $(filter-out $(TESTS_DIR)/test_s21_string.c,$(TEST_SRC_ALL))
+TEST_SRC = $(wildcard $(TESTS_DIR)/test_*.c)
 
 LIB_OBJ = $(patsubst %.c,$(BUILD_DIR)/%.o,$(LIB_SRC))
 
