@@ -3,6 +3,5 @@
 #include "check.h"
 
 Suite *strerror_suite(void);
- 
 
-#endif // TEST_S21_STRERROR_H
+#endif  // TEST_S21_STRERROR_H

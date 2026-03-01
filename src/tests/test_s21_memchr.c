@@ -190,7 +190,6 @@ Suite *memchr_suite(void) {
   TCase *tc_boundary = tcase_create("Boundary");
 
   // Основные тесты
-  tc_core = tcase_create("Core Comparison");
   tcase_add_test(tc_core, test_zero_length_standard);
   tcase_add_test(tc_core, test_find_at_beginning_standard);
   tcase_add_test(tc_core, test_find_in_middle_standard);
@@ -201,7 +200,6 @@ Suite *memchr_suite(void) {
   suite_add_tcase(s, tc_core);
 
   // Граничные случаи
-  tc_boundary = tcase_create("Boundary Cases");
   tcase_add_test(tc_boundary, test_binary_data_standard);
   tcase_add_test(tc_boundary, test_negative_char_standard);
   tcase_add_test(tc_boundary, test_large_int_char_standard);

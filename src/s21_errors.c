@@ -2,7 +2,7 @@
 
 #if S21_MACOS
 // сообщения об ошибках для macOS
- const char *s21_error_messages[] = {
+const char *s21_error_messages[] = {
     [0] = "Undefined error: 0",
     [1] = "Operation not permitted",             // EPERM
     [2] = "No such file or directory",           // ENOENT
@@ -115,7 +115,7 @@
 
 #elif S21_LINUX
 // сообщения об ошибках для Linux
- const char *s21_error_messages[] = {
+const char *s21_error_messages[] = {
     [0] = "Success",
     [1] = "Operation not permitted",                             // EPERM
     [2] = "No such file or directory",                           // ENOENT

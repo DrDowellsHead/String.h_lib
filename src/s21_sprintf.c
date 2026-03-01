@@ -111,8 +111,8 @@ static int s21_parse_int(const char **pf) {
 static void s21_parse_width(const char **pf, s21_fmt_t *fs, va_list *ap) {
   if (**pf == '*') {
     (*pf)++;
-    int w = va_arg(*ap, int); //извлечение ширины из списка аргументов
-    if (w < 0) { //отрицательная ширина - выравнивание влево + ширина поля
+    int w = va_arg(*ap, int);  // извлечение ширины из списка аргументов
+    if (w < 0) {  // отрицательная ширина - выравнивание влево + ширина поля
       fs->flag_minus = 1;
       w = -w;
     }
@@ -164,7 +164,7 @@ static void s21_out_mem(char **out, int *written, const char *src, int n) {
   }
 }
 
-//возвращает длину строки или limit
+// возвращает длину строки или limit
 static int s21_cstrlen_limit(const char *s, int limit) {
   int n = 0;
   if (!s) return 0;
@@ -175,22 +175,25 @@ static int s21_cstrlen_limit(const char *s, int limit) {
 static void s21_emit_with_width(char **out, int *written, const s21_fmt_t *fs,
                                 const char *tmp, int tmp_len, int zero_ok) {
   int width = (fs->width < 0) ? 0 : fs->width;
-  int pad = (width > tmp_len) ? (width - tmp_len) : 0; //сколько символов нужно заполнить до заданной ширины
-  //если установлен флаг заполнения нулями и не выбрано выравнивание слева, то заполняем нулями, иначе - пробелами
+  int pad = (width > tmp_len)
+                ? (width - tmp_len)
+                : 0;  // сколько символов нужно заполнить до заданной ширины
+  // если установлен флаг заполнения нулями и не выбрано выравнивание слева, то
+  // заполняем нулями, иначе - пробелами
   char pad_ch = (zero_ok && fs->flag_zero && !fs->flag_minus) ? '0' : ' ';
 
   if (!fs->flag_minus) {
-    //запись в буфер числа со знаком
+    // запись в буфер числа со знаком
     if (pad_ch == '0' && tmp_len > 0 &&
         (tmp[0] == '+' || tmp[0] == '-' || tmp[0] == ' ')) {
-      s21_out_mem(out, written, tmp, 1); //запись знака в буфер
-      s21_out_repeat(out, written, '0', pad); //запись дополняющих нулей
-      s21_out_mem(out, written, tmp + 1, tmp_len - 1); //запись самого числа
+      s21_out_mem(out, written, tmp, 1);  // запись знака в буфер
+      s21_out_repeat(out, written, '0', pad);  // запись дополняющих нулей
+      s21_out_mem(out, written, tmp + 1, tmp_len - 1);  // запись самого числа
       return;
     }
-    //запись числа без знака
-    s21_out_repeat(out, written, pad_ch, pad); 
-    s21_out_mem(out, written, tmp, tmp_len); 
+    // запись числа без знака
+    s21_out_repeat(out, written, pad_ch, pad);
+    s21_out_mem(out, written, tmp, tmp_len);
   } else {
     s21_out_mem(out, written, tmp, tmp_len);
     s21_out_repeat(out, written, ' ', pad);
@@ -201,7 +204,7 @@ static void s21_emit_with_width(char **out, int *written, const s21_fmt_t *fs,
 
 static int s21_utoa_base_rev(char *buf, unsigned long long v, int base,
                              int upper) {
-  //алфавиты доступных символов
+  // алфавиты доступных символов
   const char *dl = "0123456789abcdef";
   const char *du = "0123456789ABCDEF";
   const char *d = upper ? du : dl;
@@ -212,9 +215,12 @@ static int s21_utoa_base_rev(char *buf, unsigned long long v, int base,
     return len;
   }
   while (v != 0ULL) {
-    unsigned dig = (unsigned)(v % (unsigned long long)base); //получение разряда числа
-    buf[len++] = d[dig]; //поиск разряда в алфавите доступных символов и запись его в буфер
-    v /= (unsigned long long)base; //переход к следующему разряду(более старшему)
+    unsigned dig =
+        (unsigned)(v % (unsigned long long)base);  // получение разряда числа
+    buf[len++] = d[dig];  // поиск разряда в алфавите доступных символов и
+                          // запись его в буфер
+    v /= (unsigned long long)
+        base;  // переход к следующему разряду(более старшему)
   }
   return len;
 }
@@ -226,11 +232,12 @@ static int s21_format_int(char *tmp, const s21_fmt_t *fs, long long sval,
   int precission_set = (precission >= 0);
 
   char sign_ch = 0;
-  unsigned long long mag = 0ULL; //модуль числа
+  unsigned long long mag = 0ULL;  // модуль числа
   if (is_signed) {
     if (sval < 0) {
       sign_ch = '-';
-      mag = (unsigned long long)(-(sval + 1)) + 1ULL; //для корректной обработки -2^63, иначе будет переполнение
+      mag = (unsigned long long)(-(sval + 1)) +
+            1ULL;  // для корректной обработки -2^63, иначе будет переполнение
     } else {
       mag = (unsigned long long)sval;
       if (fs->flag_plus)
@@ -244,14 +251,15 @@ static int s21_format_int(char *tmp, const s21_fmt_t *fs, long long sval,
 
   int value_is_zero = (mag == 0ULL);
 
-  char digits_rev[128]; //массив символов для хранения считанных данных
-  int digits_len = 0; //количество выводимых символов
+  char digits_rev[128];  // массив символов для хранения считанных данных
+  int digits_len = 0;  // количество выводимых символов
 
-  int digits_empty = 0; //признак пустого значения
+  int digits_empty = 0;  // признак пустого значения
 
-  //условие precission==0 строже чем precission_set, по идее можно оставить только precission==0
-  //если передали не указатель с точностью 0(вывод всех символов) и само значение нулевое,
-  //то нужно вывести пустое значение за исключением случая восьмеричной системы, когда 0 выведется
+  // условие precission==0 строже чем precission_set, по идее можно оставить
+  // только precission==0 если передали не указатель с точностью 0(вывод всех
+  // символов) и само значение нулевое, то нужно вывести пустое значение за
+  // исключением случая восьмеричной системы, когда 0 выведется
   if (!is_pointer && precission_set && precission == 0 && value_is_zero) {
     if (fs->spec == 'o' && fs->flag_hash) {
       digits_rev[0] = '0';
@@ -264,9 +272,9 @@ static int s21_format_int(char *tmp, const s21_fmt_t *fs, long long sval,
   if (!digits_empty)
     digits_len = s21_utoa_base_rev(digits_rev, mag, base, upper);
 
-  char prefix[3]; //префиксы для 8-чной и 16-чной систем
+  char prefix[3];  // префиксы для 8-чной и 16-чной систем
   int prefix_len = 0;
-  //для указателей выводим адрес в 16-чной системе
+  // для указателей выводим адрес в 16-чной системе
   if (is_pointer) {
     prefix[prefix_len++] = '0';
     prefix[prefix_len++] = 'x';
@@ -282,25 +290,30 @@ static int s21_format_int(char *tmp, const s21_fmt_t *fs, long long sval,
 
   int need_zeros = 0;
   if (precission_set && precission > digits_len)
-    need_zeros = precission - digits_len; //количество дополнительных нулей 
+    need_zeros = precission - digits_len;  // количество дополнительных нулей
 
   int width = (fs->width < 0) ? 0 : fs->width;
   int zero_pad = 0;
   if (!precission_set && fs->flag_zero && !fs->flag_minus) {
-    //общая длина выводимой строки складывается из знака(если есть), префикса, дополнительных(ведущих) нулей и разрядов самого числа
+    // общая длина выводимой строки складывается из знака(если есть), префикса,
+    // дополнительных(ведущих) нулей и разрядов самого числа
     int core_len = digits_len + need_zeros + prefix_len + (sign_ch ? 1 : 0);
-    //ширина поля больше чем требуемая длина выводимого значения - дополняем нулями справа(их будет zero_pad штук)
-    if (width > core_len) zero_pad = width - core_len; 
+    // ширина поля больше чем требуемая длина выводимого значения - дополняем
+    // нулями справа(их будет zero_pad штук)
+    if (width > core_len) zero_pad = width - core_len;
   }
 
-  //заполняем выходной буфер
+  // заполняем выходной буфер
   int pos = 0;
   if (sign_ch) tmp[pos++] = sign_ch;
   for (int i = 0; i < prefix_len; i++) tmp[pos++] = prefix[i];
-  for (int i = 0; i < zero_pad; i++) tmp[pos++] = '0'; //почему все нули выводятся слева, по идее need_zeros дожно быть слева, а zero_pad - справа
+  for (int i = 0; i < zero_pad; i++)
+    tmp[pos++] = '0';  // почему все нули выводятся слева, по идее need_zeros
+                       // дожно быть слева, а zero_pad - справа
   for (int i = 0; i < need_zeros; i++) tmp[pos++] = '0';
 
-  //записываем разряды в привычном виде - от старшего к младшему(получали сначала младший, а потом старший)
+  // записываем разряды в привычном виде - от старшего к младшему(получали
+  // сначала младший, а потом старший)
   for (int i = digits_len - 1; i >= 0; i--) tmp[pos++] = digits_rev[i];
 
   tmp[pos] = '\0';
@@ -319,14 +332,14 @@ static void s21_upper_str(char *s) {
 
 static int s21_format_nan_inf(char *tmp, const s21_fmt_t *fs, long double v) {
   int pos = 0;
-  if (signbit((double)v)) //проверка старшего разряда, зарезервинного под знак
+  if (signbit((double)v))  // проверка старшего разряда, зарезервинного под знак
     tmp[pos++] = '-';
   else if (fs->flag_plus)
     tmp[pos++] = '+';
   else if (fs->flag_space)
     tmp[pos++] = ' ';
 
-  //для неопределенного значения выведем "nan", для бесконечности "inf"
+  // для неопределенного значения выведем "nan", для бесконечности "inf"
   if (s21_is_nan_ld(v)) {
     tmp[pos++] = 'n';
     tmp[pos++] = 'a';
@@ -338,7 +351,7 @@ static int s21_format_nan_inf(char *tmp, const s21_fmt_t *fs, long double v) {
   }
 
   tmp[pos] = '\0';
-  //для спецификаторов Е, G выводим в верхнем регистре
+  // для спецификаторов Е, G выводим в верхнем регистре
   if (fs->spec == 'E' || fs->spec == 'G') s21_upper_str(tmp);
   return pos;
 }
@@ -347,10 +360,10 @@ static int s21_format_f(char *tmp, const s21_fmt_t *fs, long double v,
                         int prec) {
   if (s21_is_nan_ld(v) || s21_is_inf_ld(v))
     return s21_format_nan_inf(tmp, fs, v);
-  if (prec < 0) prec = 6; //точность по умолчанию
+  if (prec < 0) prec = 6;  // точность по умолчанию
 
   int pos = 0;
-  int neg = (v < 0);
+  int neg = signbit((double)v) ? 1 : 0;
   long double av = s21_fabsl(v);
 
   if (neg)
@@ -360,20 +373,23 @@ static int s21_format_f(char *tmp, const s21_fmt_t *fs, long double v,
   else if (fs->flag_space)
     tmp[pos++] = ' ';
 
-  long double scale = s21_pow10_ld(prec); //10^prec
-  long double rounded = floorl(av * scale + 0.5L); //округление снизу
+  long double scale = s21_pow10_ld(prec);
 
-  unsigned long long int_part = (unsigned long long)(rounded / scale); //получаем целую часть числа
+  long double rounded_i = rintl(av * scale);
+
+  // Разбиваем округлённое число на целую и дробную части
+  unsigned long long int_part = (unsigned long long)(rounded_i / scale);
   unsigned long long frac_scaled =
-      (unsigned long long)(rounded - (long double)int_part * scale); //получаем дробную часть числа
+      (unsigned long long)(rounded_i - (long double)int_part * scale);
 
   char int_rev[128];
   int int_len = s21_utoa_base_rev(int_rev, int_part, 10, 0);
-  for (int i = int_len - 1; i >= 0; i--) tmp[pos++] = int_rev[i]; //записываем в буфер целую часть
+  for (int i = int_len - 1; i >= 0; i--)
+    tmp[pos++] = int_rev[i];  // записываем в буфер целую часть
 
   if (prec > 0 || fs->flag_hash) {
     tmp[pos++] = '.';
-    //вывод в буфер дробных разрядов от старшего к младшему
+    // вывод в буфер дробных разрядов от старшего к младшему
     for (int i = prec - 1; i >= 0; i--) {
       unsigned long long div = (unsigned long long)s21_pow10_ld(i);
       unsigned digit = (unsigned)(frac_scaled / div);
@@ -393,7 +409,7 @@ static int s21_format_e(char *tmp, const s21_fmt_t *fs, long double v, int prec,
   if (prec < 0) prec = 6;
 
   int pos = 0;
-  int neg = (v < 0);
+  int neg = signbit((double)v) ? 1 : 0;
   long double av = s21_fabsl(v);
 
   if (neg)
@@ -403,37 +419,47 @@ static int s21_format_e(char *tmp, const s21_fmt_t *fs, long double v, int prec,
   else if (fs->flag_space)
     tmp[pos++] = ' ';
 
-  //должна быть одна цифра до запятой в [1,10) для v!=0 и 0 для v==0
+  // должна быть одна цифра до запятой в [1,10) для v!=0 и 0 для v==0
   int exp10 = 0;
-  if (av != 0.0L) {
-    while (av >= 10.0L) {
-      av /= 10.0L;
+  long double mant = av;
+
+  if (mant != 0.0L) {
+    while (mant >= 10.0L) {
+      mant /= 10.0L;
       exp10++;
     }
-    while (av < 1.0L) {
-      av *= 10.0L;
+    while (mant < 1.0L) {
+      mant *= 10.0L;
       exp10--;
     }
   }
 
+  // 2) Округление мантиссы целиком (не только дроби!)
   long double scale = s21_pow10_ld(prec);
-  long double rounded = floorl(av * scale + 0.5L) / scale;
-  //если после округления дробной части получили 10, то увеличиваем експоненту на 1, а дробную часть делим на 10
-  if (rounded >= 10.0L) {
-    rounded /= 10.0L;
+
+  // banker’s rounding (ties-to-even) для mantissa
+  // mant_scaled — это целое число, представляющее mant * 10^prec
+  unsigned long long mant_scaled = (unsigned long long)rintl(mant * scale);
+
+  // перенос, если округление дало 10.0000...
+  // Например 9.9999 -> округлили -> 10.0000 => mant=1.0000, exp++
+  unsigned long long limit = (unsigned long long)(10.0L * scale);
+  if (mant_scaled >= limit) {
+    mant_scaled /= 10ULL;
     exp10++;
   }
 
-  int first = (int)floorl(rounded);
-  tmp[pos++] = (char)('0' + first); //записываем целую часть в буфер
+  // 3) Печать: 1 цифра до точки + prec цифр после точки
+  unsigned long long scale_i = (unsigned long long)scale;
+  unsigned long long first =
+      (scale_i == 0ULL) ? mant_scaled : (mant_scaled / scale_i);
+  unsigned long long frac_scaled =
+      (scale_i == 0ULL) ? 0ULL : (mant_scaled % scale_i);
 
-  long double frac = rounded - (long double)first;
+  tmp[pos++] = (char)('0' + (int)first);
 
-  //записываем в буфер дробную часть
   if (prec > 0 || fs->flag_hash) {
     tmp[pos++] = '.';
-    unsigned long long frac_scaled =
-        (unsigned long long)floorl(frac * scale + 0.5L);
     for (int i = prec - 1; i >= 0; i--) {
       unsigned long long div = (unsigned long long)s21_pow10_ld(i);
       unsigned digit = (unsigned)(frac_scaled / div);
@@ -442,19 +468,18 @@ static int s21_format_e(char *tmp, const s21_fmt_t *fs, long double v, int prec,
     }
   }
 
+  // 4) Экспонента
   tmp[pos++] = upper ? 'E' : 'e';
   tmp[pos++] = (exp10 < 0) ? '-' : '+';
 
-  //вычисление разрядов экспоненты -  сотни, десятки и единицы
   int eabs = (exp10 < 0) ? -exp10 : exp10;
-  int hundreds = eabs / 100;
-  int tens = (eabs / 10) % 10;
-  int ones = eabs % 10;
 
-  //сотни выведем только если экспонента больше 99
-  if (hundreds > 0) tmp[pos++] = (char)('0' + hundreds);
-  tmp[pos++] = (char)('0' + tens);
-  tmp[pos++] = (char)('0' + ones);
+  // формат экспоненты как у libc: минимум 2 цифры, сотни — только если >=100
+  if (eabs >= 100) {
+    tmp[pos++] = (char)('0' + (eabs / 100));
+  }
+  tmp[pos++] = (char)('0' + (eabs / 10) % 10);
+  tmp[pos++] = (char)('0' + (eabs % 10));
 
   tmp[pos] = '\0';
   return pos;
@@ -621,8 +646,8 @@ static int s21_vsprintf(char *str, const char *format, va_list ap_src) {
     int tmp_len = 0;
 
     if (fs.spec == 'c') {
-      int ch = va_arg(ap, int); //типы, меньшие чем int увеличиваются до int
-      tmp[0] = (char)ch; //...поэтому преобразовываем к char
+      int ch = va_arg(ap, int);  // типы, меньшие чем int увеличиваются до int
+      tmp[0] = (char)ch;  //...поэтому преобразовываем к char
       tmp[1] = '\0';
       tmp_len = 1;
       s21_emit_with_width(&out, &written, &fs, tmp, tmp_len, 0);
@@ -632,16 +657,16 @@ static int s21_vsprintf(char *str, const char *format, va_list ap_src) {
     if (fs.spec == 's') {
       const char *sp = va_arg(ap, const char *);
       if (sp == S21_NULL) sp = "(null)";
-      //при отрицательном lim нет ограниченичений на точность, выведем всё
+      // при отрицательном lim нет ограниченичений на точность, выведем всё
       int lim = (fs.precision >= 0) ? fs.precision : -1;
       int slen = s21_cstrlen_limit(sp, lim);
 
       int width = (fs.width < 0) ? 0 : fs.width;
       int pad = (width > slen) ? (width - slen) : 0;
-      //при выравнивании справа выводим сначала заполнители - пробелы
+      // при выравнивании справа выводим сначала заполнители - пробелы
       if (!fs.flag_minus) s21_out_repeat(&out, &written, ' ', pad);
       s21_out_mem(&out, &written, sp, slen);
-      //при выравнивании слева выводим заполнители(пробелы) после строки
+      // при выравнивании слева выводим заполнители(пробелы) после строки
       if (fs.flag_minus) s21_out_repeat(&out, &written, ' ', pad);
       continue;
     }
@@ -679,13 +704,14 @@ static int s21_vsprintf(char *str, const char *format, va_list ap_src) {
       continue;
     }
 
-    //указатель распечатывается как целое число в 16-чной системе счисления
+    // указатель распечатывается как целое число в 16-чной системе счисления
     if (fs.spec == 'p') {
       void *pv = va_arg(ap, void *);
       unsigned long long v = (unsigned long long)(uintptr_t)pv;
 
       s21_fmt_t fs2 = fs;
-      fs2.flag_hash = 0; //запрещаем указателю распечатываться как-то иначе, чем в 16-чной системе счисления
+      fs2.flag_hash = 0;  // запрещаем указателю распечатываться как-то иначе,
+                          // чем в 16-чной системе счисления
       fs2.spec = 'x';
 
       tmp_len = s21_format_int(tmp, &fs2, 0LL, v, 0, 16, 0, 1);
@@ -725,8 +751,8 @@ static int s21_vsprintf(char *str, const char *format, va_list ap_src) {
 // -------------------- s21_sprintf --------------------
 
 int s21_sprintf(char *str, const char *format, ...) {
-  va_list ap; //список аргументов
-  va_start(ap, format); //сохраняем начальное состояние списка аргументов
+  va_list ap;            // список аргументов
+  va_start(ap, format);  // сохраняем начальное состояние списка аргументов
   int r = s21_vsprintf(str, format, ap);
   va_end(ap);
   return r;

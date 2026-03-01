@@ -169,11 +169,9 @@ END_TEST
 
 Suite *strstr_suite(void) {
   Suite *s = suite_create("s21_strstr");
-  TCase *tc_core = tcase_create("Core");
-  TCase *tc_boundary = tcase_create("Boundary");
 
   // Основные тесты
-  tc_core = tcase_create("Core Tests");
+  TCase *tc_core = tcase_create("Core Tests");
   tcase_add_test(tc_core, test_s21_strstr_beginning);
   tcase_add_test(tc_core, test_s21_strstr_middle);
   tcase_add_test(tc_core, test_s21_strstr_end);
@@ -183,7 +181,7 @@ Suite *strstr_suite(void) {
   suite_add_tcase(s, tc_core);
 
   // Граничные случаи
-  tc_boundary = tcase_create("Boundary Cases");
+  TCase *tc_boundary = tcase_create("Boundary Cases");
   tcase_add_test(tc_boundary, test_s21_strstr_empty_needle);
   tcase_add_test(tc_boundary, test_s21_strstr_empty_haystack);
   tcase_add_test(tc_boundary, test_s21_strstr_both_empty);

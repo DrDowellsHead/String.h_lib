@@ -146,11 +146,8 @@ END_TEST
 
 Suite *strncat_suite(void) {
   Suite *s = suite_create("s21_strncat");
-  TCase *tc_core = tcase_create("Core");
-  TCase *tc_boundary = tcase_create("Boundary");
 
-  // Основные тесты
-  tc_core = tcase_create("Core Tests");
+  TCase *tc_core = tcase_create("Core Tests");
   tcase_add_test(tc_core, test_s21_strncat_normal);
   tcase_add_test(tc_core, test_s21_strncat_full_copy);
   tcase_add_test(tc_core, test_s21_strncat_zero);
@@ -159,8 +156,7 @@ Suite *strncat_suite(void) {
   tcase_add_test(tc_core, test_s21_strncat_equal_length);
   suite_add_tcase(s, tc_core);
 
-  // Граничные случаи
-  tc_boundary = tcase_create("Boundary Cases");
+  TCase *tc_boundary = tcase_create("Boundary Cases");
   tcase_add_test(tc_boundary, test_s21_strncat_null_dest);
   tcase_add_test(tc_boundary, test_s21_strncat_null_src);
   tcase_add_test(tc_boundary, test_s21_strncat_large_n);

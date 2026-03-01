@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdlib.h>
+
 #include "s21_errors.h"
 
 //__SIZE_TYPE__ - это макрос компилятора, который определяет какой базовый тип

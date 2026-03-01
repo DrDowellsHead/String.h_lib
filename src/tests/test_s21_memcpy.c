@@ -130,17 +130,13 @@ END_TEST
 
 Suite *memcpy_suite(void) {
   Suite *s = suite_create("s21_memcpy");
-  TCase *tc_core = tcase_create("Core");
-  TCase *tc_boundary = tcase_create("Boundary");
 
-  // Основные тесты
-  tc_core = tcase_create("Core Tests");
+  TCase *tc_core = tcase_create("Core Tests");
   tcase_add_test(tc_core, test_memcpy_random_strings);
   tcase_add_test(tc_core, test_memcpy_random_data_various_sizes);
   suite_add_tcase(s, tc_core);
 
-  // Граничные случаи
-  tc_boundary = tcase_create("Boundary Cases");
+  TCase *tc_boundary = tcase_create("Boundary Cases");
   tcase_add_test(tc_boundary, test_memcpy_random_overlap_cases);
   suite_add_tcase(s, tc_boundary);
 

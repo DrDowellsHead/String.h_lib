@@ -59,7 +59,8 @@ static int s21_parse_width(const char **pf) {
   int has = 0;
   while (**pf != '\0' && s21_is_digit_char(**pf)) {
     has = 1;
-    w = w * 10 + (int)(**pf - '0'); //преобразовываем последовательность цифр в десятичное число
+    w = w * 10 + (int)(**pf - '0');  // преобразовываем последовательность цифр
+                                     // в десятичное число
     (*pf)++;
   }
   return has ? w : -1;
@@ -186,7 +187,7 @@ static int s21_scan_integer(const char **ps, int base, int auto_base,
   }
 
   int b = base;
-  //определение системы счисления для спецификатора i
+  // определение системы счисления для спецификатора i
   if (auto_base) {
     b = 10;
     if (s21_width_ok(w) && *s == '0') {
@@ -197,7 +198,7 @@ static int s21_scan_integer(const char **ps, int base, int auto_base,
     }
   }
 
-  //пропускаем префикс 0x(0X)
+  // пропускаем префикс 0x(0X)
   if (b == 16) {
     if (s21_width_ok(w) && *s == '0' && s21_can_consume_n(w, 2) &&
         (s[1] == 'x' || s[1] == 'X')) {
@@ -261,7 +262,7 @@ static int s21_scan_float(const char **ps, int width, long double *out,
 
   int got_any_digit = 0;
 
-  //считываем целую часть
+  // считываем целую часть
   unsigned long long int_part = 0ULL;
   while (*s != '\0' && s21_width_ok(w) && s21_is_digit_char(*s)) {
     got_any_digit = 1;
@@ -271,7 +272,7 @@ static int s21_scan_float(const char **ps, int width, long double *out,
     s21_width_dec(&w);
   }
 
-  //считываем дробную часть
+  // считываем дробную часть
   unsigned long long frac_part = 0ULL;
   int frac_digits = 0;
 
@@ -354,8 +355,8 @@ int s21_sscanf(const char *str, const char *format, ...) {
   va_list ap;
   va_start(ap, format);
 
-  int assigned = 0; //количество успешно присвоенных переменных
-  __size_internal read_chars = 0; //количество прочитанных символов для %n
+  int assigned = 0;  // количество успешно присвоенных переменных
+  __size_internal read_chars = 0;  // количество прочитанных символов для %n
   int any_conversion_attempted = 0;
 
   while (*f != '\0') {
@@ -402,7 +403,7 @@ int s21_sscanf(const char *str, const char *format, ...) {
       f++;
     }
 
-    int width = s21_parse_width(&f); //парсинг ширины поля
+    int width = s21_parse_width(&f);  // парсинг ширины поля
     s21_len_t len = s21_parse_length(&f);
 
     char spec = *f;
@@ -412,7 +413,7 @@ int s21_sscanf(const char *str, const char *format, ...) {
     if (spec != 'c' && spec != 'n') s21_skip_spaces_input(&s, &read_chars);
 
     // %n - запись количества прочитанных символов в переменную
-    //без увеличения количества считанных переменных(assigned)
+    // без увеличения количества считанных переменных(assigned)
     if (spec == 'n') {
       if (!suppress) {
         if (len == S21_LEN_H) {
@@ -435,22 +436,22 @@ int s21_sscanf(const char *str, const char *format, ...) {
       int count = (width > 0) ? width : 1;
 
       for (int i = 0; i < count; i++) {
-        //входная строка короче, чем ширина, заявленая в формате
+        // входная строка короче, чем ширина, заявленая в формате
         if (s[i] == '\0') {
-          va_end(ap); //очищаем список аргументов
-          return assigned; //возвращаем 0 успешно считанных переменных
+          va_end(ap);  // очищаем список аргументов
+          return assigned;  // возвращаем 0 успешно считанных переменных
         }
       }
 
       if (!suppress) {
         char *out = va_arg(ap, char *);
-        //считываем все символы требуемой ширины поля
+        // считываем все символы требуемой ширины поля
         for (int i = 0; i < count; i++) out[i] = s[i];
         assigned++;
       }
 
-      //продвигаем указатель входной строки,
-      //но в случае флага подавления записи переменной только это и делаем
+      // продвигаем указатель входной строки,
+      // но в случае флага подавления записи переменной только это и делаем
       for (int i = 0; i < count; i++) {
         s++;
         read_chars++;
@@ -462,12 +463,12 @@ int s21_sscanf(const char *str, const char *format, ...) {
     if (spec == 's') {
       if (*s == '\0') break;
 
-      int w = width; //оставшаяся ширина поля, w<0 - нет ограничения по ширине
+      int w = width;  // оставшаяся ширина поля, w<0 - нет ограничения по ширине
       int copied = 0;
 
       if (!suppress) {
         char *out = va_arg(ap, char *);
-        while (*s != '\0' && !s21_is_space_char(*s) && w ) {
+        while (*s != '\0' && !s21_is_space_char(*s) && w) {
           out[copied++] = *s;
           s++;
           read_chars++;
@@ -477,13 +478,13 @@ int s21_sscanf(const char *str, const char *format, ...) {
         out[copied] = '\0';
         assigned++;
       } else {
-        while (*s != '\0' && !s21_is_space_char(*s) && w ) {
+        while (*s != '\0' && !s21_is_space_char(*s) && w) {
           s++;
           read_chars++;
           if (w > 0) w--;
           copied++;
         }
-        if (copied == 0) break; //не удалось считать строку
+        if (copied == 0) break;  // не удалось считать строку
       }
       continue;
     }
@@ -498,7 +499,7 @@ int s21_sscanf(const char *str, const char *format, ...) {
         signed_mode = 1;
       }
       if (spec == 'i') {
-        auto_base = 1; 
+        auto_base = 1;
         signed_mode = 1;
       }
       if (spec == 'u') {

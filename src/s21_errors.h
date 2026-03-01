@@ -12,7 +12,6 @@
 #define S21_MAX_ERROR_COUNT 131
 #endif
 
-
 extern const char *s21_error_messages[];
 // для других систем массив ошибок не определяем
 

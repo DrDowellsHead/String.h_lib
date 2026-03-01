@@ -162,7 +162,6 @@ Suite *memcmp_suite(void) {
   TCase *tc_boundary = tcase_create("Boundary");
 
   // Основные тесты
-  tc_core = tcase_create("Core Tests");
   tcase_add_test(tc_core, test_zero_length);
   tcase_add_test(tc_core, test_equal_strings);
   tcase_add_test(tc_core, test_str1_less_first_byte);
@@ -172,7 +171,6 @@ Suite *memcmp_suite(void) {
   suite_add_tcase(s, tc_core);
 
   // Граничные случаи
-  tc_boundary = tcase_create("Boundary Cases");
   tcase_add_test(tc_boundary, test_binary_data);
   tcase_add_test(tc_boundary, test_strings_with_null_bytes);
   tcase_add_test(tc_boundary, test_boundary_n_values);

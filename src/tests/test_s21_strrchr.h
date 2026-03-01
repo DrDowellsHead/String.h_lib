@@ -5,4 +5,4 @@
 
 Suite *strrchr_suite(void);
 
-#endif // TEST_S21_STRRCHR_H
+#endif  // TEST_S21_STRRCHR_H

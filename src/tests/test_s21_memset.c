@@ -115,11 +115,8 @@ END_TEST
 
 Suite *memset_suite(void) {
   Suite *s = suite_create("s21_memset");
-  TCase *tc_core = tcase_create("Core");
-  TCase *tc_boundary = tcase_create("Boundary");
 
-  // Основные тесты
-  tc_core = tcase_create("Core Tests");
+  TCase *tc_core = tcase_create("Core Tests");
   tcase_add_test(tc_core, test_memset_basic_zero);
   tcase_add_test(tc_core, test_memset_basic_char);
   tcase_add_test(tc_core, test_memset_partial);
@@ -128,8 +125,7 @@ Suite *memset_suite(void) {
   tcase_add_test(tc_core, test_memset_int_array);
   suite_add_tcase(s, tc_core);
 
-  // Граничные случаи
-  tc_boundary = tcase_create("Boundary Cases");
+  TCase *tc_boundary = tcase_create("Boundary Cases");
   tcase_add_test(tc_boundary, test_memset_single_byte);
   tcase_add_test(tc_boundary, test_memset_char_overflow);
   suite_add_tcase(s, tc_boundary);

@@ -95,6 +95,7 @@ START_TEST(test_s21_sprintf_d_star_negative_width) {
   char s1[256], s2[256];
 
   // отрицательная width через '*' должна включать '-' и взять abs(width)
+  // отрицательная width через '*' должна включать '-' и взять abs(width)
   int r1 = s21_sprintf(s1, "[%*d]", -6, 42);
   int r2 = sprintf(s2, "[%*d]", -6, 42);
 
@@ -230,6 +231,46 @@ START_TEST(test_s21_sprintf_Lf_long_double) {
 }
 END_TEST
 
+/* ------------------ NAN/INF ------------------ */
+
+START_TEST(test_s21_sprintf_nan_inf) {
+  char s1[256], s2[256];
+
+  double nanv = 0.0 / 0.0;
+  double infv = 1.0 / 0.0;
+  double ninfv = -1.0 / 0.0;
+
+  int r1 =
+      s21_sprintf(s1, "[%f][%e][%G][%+f][% f]", nanv, infv, ninfv, infv, infv);
+  int r2 = sprintf(s2, "[%f][%e][%G][%+f][% f]", nanv, infv, ninfv, infv, infv);
+
+  ck_assert_int_eq(r1, r2);
+  ck_assert_str_eq(s1, s2);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_null_string) {
+  char s1[256], s2[256];
+
+  volatile char *p = (char *)0;
+  char *arg = (char *)p;
+
+  int r1 = s21_sprintf(s1, "[%s]", arg);
+  int r2 = sprintf(s2, "[%s]", arg);
+  ck_assert_int_eq(r1, r2);
+  ck_assert_str_eq(s1, s2);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_hash_o_zero_perc0) {
+  char s1[256], s2[256];
+  int r1 = s21_sprintf(s1, "[%#.0o]", 0);
+  int r2 = sprintf(s2, "[%#.0o]", 0);
+  ck_assert_int_eq(r1, r2);
+  ck_assert_str_eq(s1, s2);
+}
+END_TEST
+
 Suite *sprintf_suite() {
   Suite *s = suite_create("s21_sprintf");
   TCase *tc = tcase_create("core");
@@ -256,6 +297,10 @@ Suite *sprintf_suite() {
   tcase_add_test(tc, test_s21_sprintf_e_E_basic);
   tcase_add_test(tc, test_s21_sprintf_g_G_basic);
   tcase_add_test(tc, test_s21_sprintf_Lf_long_double);
+
+  tcase_add_test(tc, test_s21_sprintf_nan_inf);
+  tcase_add_test(tc, test_s21_sprintf_null_string);
+  tcase_add_test(tc, test_s21_sprintf_hash_o_zero_perc0);
 
   suite_add_tcase(s, tc);
   return s;
