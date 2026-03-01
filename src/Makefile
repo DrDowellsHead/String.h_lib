@@ -32,14 +32,15 @@ LIB_OBJ = $(patsubst %.c,$(BUILD_DIR)/%.o,$(LIB_SRC))
 TEST_EXEC = $(BUILD_DIR)/test_runner
 TEST_EXEC_COV = $(BUILD_DIR)/test_runner_cov
 
+.DEFAULT_GOAL := all
+
 # Создание директорий
 $(BUILD_DIR) $(REPORT_DIR):
 	@mkdir -p $@
 
 .PHONY: all clean test s21_string.a gcov_report help clean_cov
 
-# Основные цели
-all: test
+all: $(TEST_EXEC)
 
 # ============================================
 # СБОРКА БЕЗ ПОКРЫТИЯ
